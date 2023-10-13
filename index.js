@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const app = express();
 
-
 // Load config file
 dotenv.config({ path: './config/config.env' })
 
@@ -11,6 +10,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
   });
 
+  // Connect to MongoDB
 const uri = process.env.MONGO_URI;
 async function connect() {
   try {
