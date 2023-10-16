@@ -1,0 +1,29 @@
+### Get all facilities
+GET http://localhost:3000/facilities/
+
+### Get a facility by id
+GET http://localhost:3000/facilities/652cb37bebd6b78b0e290239
+
+### Create a facility
+POST http://localhost:3000/facilities/
+Content-Type: application/json
+
+{
+    "facilityName": "Facility 3",
+    "facilityType": "retail",
+    "operatingHours": {
+        "start": "9:00",
+        "end": "21:00"
+    }
+}
+
+### Delete a facility
+DELETE http://localhost:3000/facilities/652cbcfa951430073b83f8a7
+
+### Update the facility info
+PATCH http://localhost:3000/facilities/652cbd5dea3a1da74a98d42c
+Content-Type: application/json
+
+{
+    "facilityType": "hospital"
+}

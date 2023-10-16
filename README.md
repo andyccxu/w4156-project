@@ -1,22 +1,43 @@
 # OptiStaff API
 
-Smart Dynamic Scheduler (Schedule Builder)
+OptiStaff API provides a Smart Dynamic Scheduler, streamlining the task of building and managing schedules, onboarding the new staff, and more.
 
-Install packages:
-`npm i express mongoose dotenv cors bcryptjs morgan jsonwebtoken`
-Explanation:
-express — To manage the server and routes.
-mongoose — To connect with MongoDB
-dotenv — To load environment variables from the .env file
-cors — To allow api access from different domains
-bcryptjs — To hash passwords
-morgan — To log HTTP requests and errors
-jsonwebtoken — for authentication
+## Install packages
 
-To run the server:
-`node index.js`
+```bash
+npm install express mongoose dotenv nodemon cors bcryptjs morgan jsonwebtoken jest
+```
 
-To stop the server:
-`ctrl + c`
+### Packages Explanation
 
-To test the API, install: <https://www.postman.com>
+- **express**: Manages the server and routes.
+- **mongoose**: Interface for MongoDB connection and schema definition.
+- **dotenv**: Loads environment variables from a .env file.
+- **nodemon**: Automatically restarts the node application when file changes in the directory are detected.
+- **cors**: Enables Cross-Origin Resource Sharing, allowing API access from different domains.
+- **bcryptjs**: Securely hashes passwords before storage.
+- **morgan**: Logs HTTP requests and errors, helping with debugging.
+- **jsonwebtoken**: Facilitates authentication via JSON Web Tokens.
+- **jest**: Delightful JavaScript testing framework.
+
+#### To run the server
+
+```bash
+node server.js
+```
+
+#### To stop the server
+
+```bash
+ctrl + c
+```
+
+For API testing, we recommend [Postman](https://www.postman.com/). It offers a comprehensive suite to test, develop, and document APIs.
+
+## Running Tests
+
+To run tests, simply use the following command:
+
+```bash
+npm test
+```
