@@ -7,23 +7,26 @@ const bcrypt = require('bcryptjs')
 const morgan = require('morgan')
 const jwt = require('jsonwebtoken')
 
-// MIDDLEWEARES
-dotenv.config({ path: './config/config.env' })
-app.use(express.json())
+// Middlewares
+dotenv.config({path: './config/config.env'});
+app.use(express.json());
+
 // app.use(morgan('dev'))
 // app.use(cors())
 
-// ROUTES
-const authRoute = require('./routes/auth')
-const facilitiesRouter = require('./routes/facilities')
-app.use('/facilities', facilitiesRouter)
+// Import routes
+const authRoute = require('./routes/auth');
+const facilitiesRouter = require('./routes/facilities');
+app.use('/facilities', facilitiesRouter);
 
+const notificationsRouter = require('./routes/notifications');
+app.use('/notifications', notificationsRouter);
 
 app.get('/', (req, res) => {
-    res.send('Index page. Nothing to see here. Try /facilities etc.');
-  });
+  res.send('Index page. Nothing to see here. Try /facilities etc.');
+});
 
-  // Connect to MongoDB
+// Connect to MongoDB
 const uri = process.env.MONGO_URI;
 async function connect() {
   try {
