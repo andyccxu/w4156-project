@@ -67,7 +67,15 @@ router.delete('/:id', getFacility, async (req, res) => {
   }
 });
 
-// Middleware function to get facility object by ID
+/**
+ * Middleware that get one schedule by _id.
+ *
+ * @param {*} req The request object.
+ * @param {*} res The response object.
+ * @param {*} next The next function executes the succeeding
+ * middleware when invoked.
+ * @return {int}
+ */
 async function getFacility(req, res, next) {
   let facility;
   try {

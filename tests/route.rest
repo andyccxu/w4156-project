@@ -2,7 +2,7 @@
 GET http://localhost:3000/facilities/
 
 ### Get a facility by id
-GET http://localhost:3000/facilities/652cb37bebd6b78b0e290239
+GET http://localhost:3000/facilities/65302331162e10b0dff5c6d0
 
 ### Create a facility
 POST http://localhost:3000/facilities/
@@ -21,19 +21,46 @@ Content-Type: application/json
 }
 
 ### Delete a facility
-DELETE http://localhost:3000/facilities/652d8fd1a7857b9c3f5ac890
+DELETE http://localhost:3000/facilities/6530236b162e10b0dff5c6d3
 
 ### Update the facility info
-PATCH http://localhost:3000/facilities/652cbd5dea3a1da74a98d42c
+PATCH http://localhost:3000/facilities/653026ac162e10b0dff5c6da
 Content-Type: application/json
 
 {
     "facilityType": "hospital"
 }
 
-### Get all schedules
+### Get all notifications
 GET http://localhost:3000/notifications/
 
 
 ### Get a scbedule by id
-GET http://localhost:3000/notifications/69
+GET http://localhost:3000/notifications/653026db162e10b0dff5c6e1
+
+
+### Get all notification
+GET http://localhost:3000/notifications/
+
+
+### Create a noification
+POST http://localhost:3000/notifications/
+Content-Type: application/json
+
+{
+    "title": "Staff1 Availibility",
+    "content": "Hey Staff1! Are available on Wednesday? Thank you."
+   
+}
+
+### Delete a notification
+DELETE http://localhost:3000/notifications/
+
+
+### Update the notification info
+PATCH http://localhost:3000/notifications/
+Content-Type: application/json
+
+{
+    "content": "Hey Staff 1! Thank you for the response!"
+}
