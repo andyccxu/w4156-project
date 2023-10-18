@@ -64,3 +64,33 @@ Content-Type: application/json
 {
     "content": "Hey Staff 1! Thank you for the response!"
 }
+
+
+### Create a staff
+POST http://localhost:3000/staffs/
+Content-Type: application/json
+
+{
+    "name": "serdar",
+    "location": "my house",
+    "skill": "10",
+    "phoneNumber": "1234567890"
+
+}
+
+### Get all staffs
+GET http://localhost:3000/staffs/
+
+### Get a staff by id
+GET http://localhost:3000/staffs/653049169b5062091f0d04a3
+
+### Update the staff info
+PATCH http://localhost:3000/staffs/653049169b5062091f0d04a3
+Content-Type: application/json
+
+{
+    "location": "New York"
+}
+
+### Delete a staff
+DELETE http://localhost:3000/staffs/653049169b5062091f0d04a3

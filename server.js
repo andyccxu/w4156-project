@@ -24,8 +24,14 @@ app.use('/facilities', facilitiesRouter);
 const notificationsRouter = require('./routes/notifications');
 app.use('/notifications', notificationsRouter);
 
+<<<<<<< Updated upstream
 const schedulesRouter = require('./routes/schedules');
 app.use('/schedules', schedulesRouter);
+=======
+const staffRouter = require('./routes/staffs');
+app.use('/staffs', staffRouter);
+
+>>>>>>> Stashed changes
 
 app.get('/', (req, res) => {
   res.send('Index page. Nothing to see here. Try /facilities etc.');
