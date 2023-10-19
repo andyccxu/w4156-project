@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 const Schedule = require('../models/Schedule');
+const Facility = require('../models/Facility');
+const scheduling = require('../service/scheduling');
 
 // GET all shifting schedules
 router.get('/', async (req, res) => {
@@ -16,10 +18,13 @@ router.get('/', async (req, res) => {
 
 // GET one shifting schedule
 router.get('/:id', getSchedule, (req, res) => {
-  res.send(res.schedule.name);
+  res.json({
+    sid: req.params.id,
+    schedule: res.schedule,
+  });
 });
 
-// POST personal schedule of one employee
+// POST new schedule for a facility
 router.post('/', async (req, res) => {
   const schedule = new Schedule({
     facilityId: req.body.facility,
@@ -34,12 +39,15 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Put newly scheduled working/shift hours
-router.patch('/scheduleshifts', scheduleShifts, (req, res) => {
-  res.send('success: shifts made = ' + res.schedule.shifts);
+// PATCH update new shift hours
+router.patch('/:id', scheduleShifts, (req, res) => {
+  res.status(200).json({
+    status: 'Success: new shifts scheduled',
+    // message: 'new shifts scheduled: ' + res.schedule.shifts,
+  });
 });
 
-// Delete one schedule
+// DELETE one schedule
 router.delete('/:id', getSchedule, async (req, res) => {
   try {
     await res.schedule.deleteOne();
@@ -78,8 +86,6 @@ async function getSchedule(req, res, next) {
 
 /**
  * Make a new shift schedule for an employee
- * ? varies for each day
- * ? based on employer's need on different time slots
  * @date 10/15/2023 - 7:33:37 PM
  *
  * @async
@@ -91,24 +97,46 @@ async function getSchedule(req, res, next) {
  */
 async function scheduleShifts(req, res, next) {
   try {
-    schedule = await Schedule.findById(req.body.sid);
+    schedule = await Schedule.findById(req.params.id);
+    facility = await Facility.findById(schedule.facilityId);
+
     if (schedule == null) {
-      return res.status(404).json({message: 'Cannot find the schedule'});
+      return res.status(404).json({
+        message: 'Error: Cannot find the schedule'});
+    }
+    if (facility == null) {
+      return res.status(404).json({
+        message: 'Error: Cannot find the facility refered by the schedule'});
+    }
+    if (schedule.shifts['start'] != undefined) {
+      return res.status(405).json({
+        message: 'Error: Shifts are already scheduled'});
     }
   } catch (err) {
     return res.status(500).json({message: err.message});
   }
 
-  start = new Date(2023, 0, 0, 8, 0); // 8:00 am
+
+  // compute the shifts hour based on the starting time
+  // of the facility and the target working hours for the
+  // employee
+  start = new Date();
+  const [startHour, startMinute] = scheduling.parseTime(
+      facility.operatingHours.start);
+  start.setHours(startHour);
+  start.setMinutes(startMinute);
+  start.setSeconds(0);
+
   end = new Date(start.getTime());
   end.setHours(start.getHours() + schedule.target_hours);
-  // TODO: update this naive scheduling algorithm
+
   workingHours = {
     start: start.toLocaleTimeString(),
     end: end.toLocaleTimeString(),
   };
 
-  const filter = {_id: req.body.sid};
+  // find the one schedule and fill up its shifts field
+  const filter = {_id: req.params.id};
   const update = {shifts: workingHours};
 
   await Schedule.findOneAndUpdate(filter, update);
