@@ -1,24 +1,37 @@
 const mongoose = require('mongoose');
 
 const ScheduleSchema = new mongoose.Schema({
-  // name of the employee
-  name: {
-    type: String,
-    required: true,
+  // a schedule is created for each facility
+  facilityId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Facility',
   },
-  // unavailable time slots
-  unavailable_hours: {
-    type: [[Date]],
+
+  // a list of staff working at the facility
+  //   staffList: [{
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'Staff'
+  //   }],
+
+  // date when the schedule gets generated
+  dateGenerated: {
+    type: Date,
+    default: Date.now,
   },
-  // working hours scheduled for this employee
-  working_hours: {
-    type: [[Date]],
+  shifts: {
+    start: String,
+    end: String,
   },
-  // targeted working hours per day
+  // shifts: [{
+  //   staffId: mongoose.Schema.Types.ObjectId,
+  //   start: String,
+  //   end: String,
+  // }],
   target_hours: {
     type: Number,
     default: 6,
   },
+
 });
 
 

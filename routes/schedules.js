@@ -22,8 +22,7 @@ router.get('/:id', getSchedule, (req, res) => {
 // POST personal schedule of one employee
 router.post('/', async (req, res) => {
   const schedule = new Schedule({
-    // TODO: to be filled
-    name: req.body.name,
+    facilityId: req.body.facility,
   });
 
   try {
@@ -36,9 +35,18 @@ router.post('/', async (req, res) => {
 });
 
 // Put newly scheduled working/shift hours
-router.put('/makeshifts/:id', findShiftHours, (req, res) => {
-  console.log('makeshifts: ', res.schedule.working_hours);
-  res.send('success');
+router.patch('/scheduleshifts', scheduleShifts, (req, res) => {
+  res.send('success: shifts made = ' + res.schedule.shifts);
+});
+
+// Delete one schedule
+router.delete('/:id', getSchedule, async (req, res) => {
+  try {
+    await res.schedule.deleteOne();
+    res.json({message: 'Deleted schedule'});
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
 });
 
 
@@ -81,9 +89,9 @@ async function getSchedule(req, res, next) {
  * middleware when invoked.
  * @return {unknown}
  */
-async function findShiftHours(req, res, next) {
+async function scheduleShifts(req, res, next) {
   try {
-    schedule = await Schedule.findById(req.params.id);
+    schedule = await Schedule.findById(req.body.sid);
     if (schedule == null) {
       return res.status(404).json({message: 'Cannot find the schedule'});
     }
@@ -91,16 +99,17 @@ async function findShiftHours(req, res, next) {
     return res.status(500).json({message: err.message});
   }
 
-  workingHours = [];
-  // hardcoded: working hours range in consideration
-  start = new Date(2023, 0, 0, 8, 0);
-  end = new Date(2023, 0, 0, 20, 59);
+  start = new Date(2023, 0, 0, 8, 0); // 8:00 am
+  end = new Date(start.getTime());
+  end.setHours(start.getHours() + schedule.target_hours);
+  // TODO: update this naive scheduling algorithm
+  workingHours = {
+    start: start.toLocaleTimeString(),
+    end: end.toLocaleTimeString(),
+  };
 
-  // TODO: algorithms to be filled
-  workingHours = [[start, end]];
-
-  const filter = {_id: req.params.id};
-  const update = {working_hours: workingHours};
+  const filter = {_id: req.body.sid};
+  const update = {shifts: workingHours};
 
   await Schedule.findOneAndUpdate(filter, update);
 
