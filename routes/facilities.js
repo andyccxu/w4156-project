@@ -70,11 +70,14 @@ router.delete('/:id', getFacility, async (req, res) => {
 /**
  * Middleware that get one schedule by _id.
  *
- * @param {*} req The request object.
- * @param {*} res The response object.
- * @param {*} next The next function executes the succeeding
- * middleware when invoked.
- * @return {int}
+ * @async
+ * @function
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {function} next - The next middleware function in the stack.
+ * @throws {Object} - Returns a 404 status code if staff is not found.
+ * @throws {Object} - Returns a 500 status code if a server error occurs.
+ * @return {void}
  */
 async function getFacility(req, res, next) {
   let facility;

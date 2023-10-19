@@ -75,7 +75,6 @@ Content-Type: application/json
     "location": "my house",
     "skill": "10",
     "phoneNumber": "1234567890"
-
 }
 
 ### Get all staffs

@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const morgan = require('morgan');
-const jwt = require('jsonwebtoken');
+// const cors = require('cors');
+// const bcrypt = require('bcryptjs');
+// const morgan = require('morgan');
+// const jwt = require('jsonwebtoken');
 
 // Load config file
 dotenv.config({path: './config/config.env'});
@@ -13,8 +13,11 @@ const app = express();
 // We want express to parse user input json
 app.use(express.json());
 
-// app.use(morgan('dev'))
-// app.use(cors())
+// app.use(morgan('dev'));
+// app.use(cors());
+// app.use(bcrypt());
+// app.use(jwt());
+
 
 // Routes
 // const authRoute = require('./routes/auth');

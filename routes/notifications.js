@@ -60,13 +60,14 @@ router.delete('/:id', getNotification, async (req, res) => {
   }
 });
 
-// eslint-disable-next-line valid-jsdoc
 /**
- *
- * @param {*} req
- * @param {*} res
- * @param {*} next
- * @returns
+ * Middleware function to get a notification by ID
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ * @throws {Object} - Returns a 404 status code if staff is not found.
+ * @throws {Object} - Returns a 500 status code if a server error occurs.
+ * @return {Promise<void>}
  */
 async function getNotification(req, res, next) {
   let notification;
