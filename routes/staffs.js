@@ -1,4 +1,5 @@
 const express = require('express');
+// eslint-disable-next-line new-cap
 const router = express.Router();
 const Staff = require('../models/Staff');
 
@@ -66,6 +67,19 @@ router.delete('/:id', getStaff, async (req, res) => {
 });
 
 
+/**
+ * Middleware function to get specific staff by ID. If staff member is found,
+ * it is attached to the response object, otherwise an error is returned.
+ *
+ * @async
+ * @function
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {function} next - The next middleware function in the stack.
+ * @throws {Object} - Returns a 404 status code if staff is not found.
+ * @throws {Object} - Returns a 500 status code if a server error occurs.
+ * @return {void}
+ */
 async function getStaff(req, res, next) {
   let staff;
   try {
@@ -82,4 +96,4 @@ async function getStaff(req, res, next) {
 }
 
 
-module.exports = router;
+module.exports = {router, getStaff};
