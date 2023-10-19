@@ -21,7 +21,7 @@ app.use(express.json());
 const facilitiesRouter = require('./routes/facilities');
 app.use('/facilities', facilitiesRouter);
 
-const notificationsRouter = require('./routes/notifications');
+const {router: notificationsRouter} = require('./routes/notifications');
 app.use('/notifications', notificationsRouter);
 
 const schedulesRouter = require('./routes/schedules');

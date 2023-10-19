@@ -84,4 +84,4 @@ async function getNotification(req, res, next) {
 }
 
 
-module.exports = router;
+module.exports = {router, getNotification};
