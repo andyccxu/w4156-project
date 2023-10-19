@@ -41,3 +41,57 @@ To run tests, simply use the following command:
 ```bash
 npm test
 ```
+## Endpoints 
+
+### `POST /staff`
+  - **Description:**
+    Adds a staff member to the database with the specified details.
+  - **Request Body:**
+    - `name: string`
+    - `location: string`
+    - `skill: string`
+    - `phoneNumber: string`
+  - **Response Codes:**
+    - `201: Success`
+    - `400: Invalid Input`
+
+### `GET /staff`
+  - **Description:**
+    Retrieves all staff members from the database.
+  - **Response Codes:**
+    - `200: Success`
+    - `500: Internal Server Error`
+
+### `GET /staff/:id`
+  - **Description:**
+    Retrieves a specific staff member by ID from the database.
+  - **Request Parameters:**
+    - `id: int`
+  - **Response Codes:**
+    - `200: Success`
+    - `404: Staff Member Not Found`
+
+### `PATCH /staff/:id`
+  - **Description:**
+    Updates the details of a specific staff member by ID.
+  - **Request Parameters:**
+    - `id: int`
+  - **Request Body (any of the following optional):**
+    - `name: string`
+    - `location: string`
+    - `skill: string`
+    - `phoneNumber: string`
+  - **Response Codes:**
+    - `200: Success`
+    - `400: Invalid Input`
+    - `404: Staff Member Not Found`
+
+### `DELETE /staff/:id`
+  - **Description:**
+    Deletes a specific staff member by ID from the database.
+  - **Request Parameters:**
+    - `id: int`
+  - **Response Codes:**
+    - `200: Success`
+    - `404: Staff Member Not Found`
+    - `500: Internal Server Error`
