@@ -1,4 +1,4 @@
-const {getStaff} = require('../routes/staffs');
+const {getStaff} = require('../routes/staff');
 const Staff = require('../models/Staff');
 const httpMocks = require('node-mocks-http');
 
@@ -24,7 +24,3 @@ describe('getStaff Middleware', () => {
     expect(next).toBeCalled();
   });
 });
-
-
-//Add other unit tests here 
-//getFacility, getNotification, getSchedule

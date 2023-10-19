@@ -22,8 +22,8 @@ router.post('/', async (req, res) => {
 // READ
 router.get('/', async (req, res) => {
   try {
-    const staffs = await Staff.find();
-    res.json(staffs);
+    const staff = await Staff.find();
+    res.json(staff);
   } catch (err) {
     res.status(500).json({message: err.message});
   }
