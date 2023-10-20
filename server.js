@@ -27,7 +27,7 @@ app.use('/facilities', facilitiesRouter);
 const {router: notificationsRouter} = require('./routes/notifications');
 app.use('/notifications', notificationsRouter);
 
-const schedulesRouter = require('./routes/schedules');
+const {router: schedulesRouter} = require('./routes/schedules');
 app.use('/schedules', schedulesRouter);
 
 const {router: staffRouter} = require('./routes/staff');
