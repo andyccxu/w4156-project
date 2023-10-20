@@ -146,4 +146,4 @@ async function scheduleShifts(req, res, next) {
 }
 
 
-module.exports = router;
+module.exports = {router, getSchedule};
