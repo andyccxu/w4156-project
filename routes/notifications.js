@@ -2,9 +2,8 @@ const express = require('express');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 const Notification = require('../models/Notification');
-// Get all schedules
-// http://localhost:3000/schedules
 
+// Get all schedules
 router.get('/', async (req, res) => {
   try {
     const notifications = await Notification.find();

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Facility = require('../models/Facility');
 
-// Getting all
+// Getting all facilities
 router.get('/', async (req, res) => {
   try {
     const facilities = await Facility.find();
@@ -13,12 +13,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Getting one
+// Getting one facility by id
 router.get('/:id', getFacility, (req, res) => {
   res.send(res.facility);
 });
 
-// Creating one
+// Creating one facility
 router.post('/', async (req, res) => {
   const facility = new Facility({
     facilityName: req.body.facilityName,
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Updating one
+// Updating one facility by id
 router.patch('/:id', getFacility, async (req, res) => {
   if (req.body.facilityName != null) {
     res.facility.facilityName = req.body.facilityName;
@@ -57,7 +57,7 @@ router.patch('/:id', getFacility, async (req, res) => {
   }
 });
 
-// Deleting one
+// Deleting one facility by id
 router.delete('/:id', getFacility, async (req, res) => {
   try {
     await res.facility.deleteOne();
@@ -95,4 +95,4 @@ async function getFacility(req, res, next) {
 }
 
 
-module.exports = router;
+module.exports = {router, getFacility};

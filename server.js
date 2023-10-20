@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Routes
 // const authRoute = require('./routes/auth');
-const facilitiesRouter = require('./routes/facilities');
+const {router: facilitiesRouter} = require('./routes/facilities');
 app.use('/facilities', facilitiesRouter);
 
 const {router: notificationsRouter} = require('./routes/notifications');
