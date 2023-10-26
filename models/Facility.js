@@ -33,6 +33,15 @@ const facilitySchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  managedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    // required: true,
+  },
+  staffAssigned: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Staff',
+  }],
   // peakHours: {
   //   start: String,
   //   end: String,
@@ -52,10 +61,6 @@ const facilitySchema = new mongoose.Schema({
   //   //   required: true
   //   }
   // },
-  // staffAssigned: [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Staff'
-  // }],
   // currentSchedules: [{
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Schedule'

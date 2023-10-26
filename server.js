@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const verifyAuth = require('./middleware/verifyAuth');
 // const cors = require('cors');
 // const bcrypt = require('bcryptjs');
 // const morgan = require('morgan');
@@ -20,18 +21,20 @@ app.use(express.json());
 
 
 // Routes
-// const authRoute = require('./routes/auth');
+const authRouter = require('./routes/auth');
+app.use('/auth', authRouter);
+
 const {router: facilitiesRouter} = require('./routes/facilities');
-app.use('/facilities', facilitiesRouter);
+app.use('/facilities', verifyAuth, facilitiesRouter);
 
 const {router: notificationsRouter} = require('./routes/notifications');
-app.use('/notifications', notificationsRouter);
+app.use('/notifications', verifyAuth, notificationsRouter);
 
 const {router: schedulesRouter} = require('./routes/schedules');
-app.use('/schedules', schedulesRouter);
+app.use('/schedules', verifyAuth, schedulesRouter);
 
 const {router: staffRouter} = require('./routes/staff');
-app.use('/staff', staffRouter);
+app.use('/staff', verifyAuth, staffRouter);
 
 
 app.get('/', (req, res) => {
