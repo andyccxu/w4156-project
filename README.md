@@ -5,7 +5,7 @@ OptiStaff API provides a Smart Dynamic Scheduler, streamlining the task of build
 ## Install packages
 
 ```bash
-npm install express mongoose dotenv nodemon cors bcryptjs morgan jsonwebtoken jest node-mocks-https
+npm install
 ```
 
 ### Packages Explanation
@@ -45,6 +45,35 @@ npm test
 
 ## Endpoints
 
+### User Authentication
+
+Before using any other endpoint, user must create a user and sign up, and use the appropriate bearer token in subsequent requests. 
+#### `POST /auth/signup`
+
+- **URL:** `http://localhost:8080/auth/signup`
+- **Description:** 
+    Signup a new user.
+- **Request Body:**
+  - `name: string`
+  - `email: string`
+  - `password: string`
+- **Response Codes:**
+  - `201: User registered successfully`
+  - `400: User already exists or other error`
+  
+#### `POST /auth/login`
+
+- **URL:** `http://localhost:8080/auth/login`
+- **Description:** 
+    Login a user and retrieve an authentication token.
+- **Request Body:**
+  - `email: string`
+  - `password: string`
+- **Response Codes:**
+  - `200: Logged in successfully`
+  - `400: Email or password is incorrect or other error`
+
+ 
 ### Facilities
 
 #### `GET /facilities`
