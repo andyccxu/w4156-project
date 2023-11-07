@@ -1,0 +1,26 @@
+# [optional] the name appeared under "Actions/All workflows"
+name: CI Workflow
+
+# triggered on every push event
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'  # caching dependencies
+      - run: npm ci     # faster than npm install
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: ESLint style check
+        run: npx eslint .
