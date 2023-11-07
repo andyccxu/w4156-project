@@ -38,11 +38,11 @@ const StaffSchema = new mongoose.Schema({
     required: [true, 'User phone number required'],
   },
 
-  // ---Assign staff to facility - include in further iterations---//
-  // assignedFacility:{
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Facility'
-  // },
+  // ---Assign staff to facility
+  assignedFacility: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Facility',
+  },
 
   // -------- available hours - include in further iterations -----//
   // hours: {

@@ -10,6 +10,7 @@ router.post('/', async (req, res) => {
     location: req.body.location,
     skill: req.body.skill,
     phoneNumber: req.body.phoneNumber,
+    assignedFacility: req.body.assignedFacility,
   });
   try {
     const newStaff = await staff.save();

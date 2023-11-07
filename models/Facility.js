@@ -4,6 +4,7 @@ const facilitySchema = new mongoose.Schema({
   facilityName: {
     type: String,
     required: true,
+    unique: true,
     trim: true,
   },
   facilityType: {
@@ -69,8 +70,12 @@ const facilitySchema = new mongoose.Schema({
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Notification'
   // }]
-});
+}, {strict: true});
 
 const Facility = mongoose.model('Facility', facilitySchema);
+
+// indexes need to be built so that mongodb can ensure
+// the unique property
+Facility.createIndexes();
 
 module.exports = Facility;

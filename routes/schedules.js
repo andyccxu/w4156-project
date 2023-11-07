@@ -1,10 +1,15 @@
 const express = require('express');
+const moment = require('moment');
+
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-const Schedule = require('../models/Schedule');
+const {Schedule, ScheduleEntry} = require('../models/Schedule');
 const Facility = require('../models/Facility');
+const Staff = require('../models/Staff');
+
 const scheduling = require('../service/scheduling');
+
 
 // GET all shifting schedules
 router.get('/', async (req, res) => {
@@ -26,9 +31,48 @@ router.get('/:id', getSchedule, (req, res) => {
 
 // POST new schedule for a facility
 router.post('/', async (req, res) => {
-  const schedule = new Schedule({
-    facilityId: req.body.facility,
+  // query the facility by name
+  const fname = req.body.facility;
+  const facility = await Facility.findOne({facilityName: fname});
+  if (!facility) {
+    // cannot find the facility
+    res.status(404).json({message: 'Cannot find the facility: ', fname});
+    return;
+  }
+
+  // get all the staff working at the facility
+  let staffMembers;
+  try {
+    staffMembers = await Staff.find({assignedFacility: facility._id});
+  } catch (err) {
+    res.status(500).json({message: err.message});
+    return;
+  }
+
+  // create a new schedule
+  schedule = new Schedule({
+    facilityId: facility._id,
   });
+
+  const shifts = scheduling.computeShifts(facility.operatingHours.start,
+      facility.operatingHours.end,
+      facility.numberShifts);
+
+  // create a new schedule entry for each staff
+  for (const staff of staffMembers) {
+    // randomly select a shift
+    const shift = shifts[Math.floor(Math.random() * shifts.length)];
+
+    const scheduleEntry = new ScheduleEntry({
+      staffId: staff._id,
+      start: shift.start,
+      end: shift.end,
+    });
+
+    // we fill the shifts field of the schedule
+    schedule.shifts.push(scheduleEntry);
+  }
+
 
   try {
     const newSchedule = await schedule.save();
@@ -39,11 +83,84 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PATCH update new shift hours
-router.patch('/:id', scheduleShifts, (req, res) => {
+// PATCH update a specific schedule entry
+router.patch('/:id', getSchedule, getFacility, async (req, res) => {
+  schedule = res.schedule;
+  facility = res.facility;
+
+  // loop over the shifts in the request body
+  for (const shift of req.body.shifts) {
+    // validate the input
+    const instance = new ScheduleEntry({
+      staffId: shift.staffId,
+      start: shift.start,
+      end: shift.end,
+      days: shift.days,
+    });
+
+    try {
+      await instance.validate();
+    } catch (error) {
+      res.status(400).json({
+        error: error.message,
+        message: 'Error: Invalid input format.',
+      });
+      return;
+    }
+
+    // check input time format
+    if (!moment(shift.start, 'HH:mm', true).isValid() ||
+    !moment(shift.end, 'HH:mm', true).isValid()) {
+      res.status(400).json({
+        input_start: shift.start,
+        input_end: shift.end,
+        message: 'Error: Invalid start/end time format. ' +
+        'Strict parsing with format HH:mm.',
+      });
+      return;
+    }
+
+    // check start time < end time
+    if (moment(shift.start, 'HH:mm').isAfter(moment(shift.end, 'HH:mm'))) {
+      res.status(400).json({
+        start: shift.start,
+        end: shift.end,
+        message: 'Error: Start time must be before end time.',
+      });
+      return;
+    }
+
+    // check the facility opening time
+    startValid = scheduling.isOperatingTime(shift.start,
+        facility.operatingHours.start,
+        facility.operatingHours.end);
+    endValid = scheduling.isOperatingTime(shift.end,
+        facility.operatingHours.start,
+        facility.operatingHours.end);
+
+    if (!startValid || !endValid) {
+      res.status(400).json({
+        start: shift.start,
+        end: shift.end,
+        message: 'Error: Start/end time is out of the operating hours.',
+      });
+      return;
+    }
+  };
+
+  // update the shifts property of the schedule
+  try {
+    await Schedule.findOneAndUpdate(
+        {_id: req.params.id},
+        {shifts: req.body.shifts},
+    );
+  } catch (err) {
+    res.status(500).json({message: err.message});
+    return;
+  }
+
   res.status(200).json({
-    status: 'Success: new shifts scheduled',
-    // message: 'new shifts scheduled: ' + res.schedule.shifts,
+    message: 'Success: shifts schedule updated',
   });
 });
 
@@ -60,7 +177,6 @@ router.delete('/:id', getSchedule, async (req, res) => {
 
 /**
  * Middleware that get one schedule by _id.
- * @date 10/15/2023 - 7:32:32 PM
  *
  * @async
  * @param {*} req The request object.
@@ -85,65 +201,27 @@ async function getSchedule(req, res, next) {
 }
 
 /**
- * Make a new shift schedule for an employee
- * @date 10/15/2023 - 7:33:37 PM
+ * Middleware that get one facility by _id.
  *
  * @async
  * @param {*} req The request object.
  * @param {*} res The response object.
  * @param {*} next The next function executes the succeeding
  * middleware when invoked.
- * @return {unknown}
+ * @return {int}
  */
-async function scheduleShifts(req, res, next) {
+async function getFacility(req, res, next) {
   try {
-    schedule = await Schedule.findById(req.params.id);
-    facility = await Facility.findById(schedule.facilityId);
-
-    if (schedule == null) {
-      return res.status(404).json({
-        message: 'Error: Cannot find the schedule'});
-    }
+    facility = await Facility.findById(res.schedule.facilityId);
     if (facility == null) {
-      return res.status(404).json({
-        message: 'Error: Cannot find the facility refered by the schedule'});
-    }
-    if (schedule.shifts['start'] != undefined) {
-      return res.status(405).json({
-        message: 'Error: Shifts are already scheduled'});
+      return res.status(404).json({message: 'Cannot find the facility'});
     }
   } catch (err) {
     return res.status(500).json({message: err.message});
   }
 
-
-  // compute the shifts hour based on the starting time
-  // of the facility and the target working hours for the
-  // employee
-  start = new Date();
-  const [startHour, startMinute] = scheduling.parseTime(
-      facility.operatingHours.start);
-  start.setHours(startHour);
-  start.setMinutes(startMinute);
-  start.setSeconds(0);
-
-  end = new Date(start.getTime());
-  end.setHours(start.getHours() + schedule.target_hours);
-
-  workingHours = {
-    start: start.toLocaleTimeString(),
-    end: end.toLocaleTimeString(),
-  };
-
-  // find the one schedule and fill up its shifts field
-  const filter = {_id: req.params.id};
-  const update = {shifts: workingHours};
-
-  await Schedule.findOneAndUpdate(filter, update);
-
-  res.schedule = schedule;
+  res.facility = facility;
   next();
 }
-
 
 module.exports = {router, getSchedule};

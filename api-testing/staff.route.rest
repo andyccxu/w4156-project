@@ -1,0 +1,32 @@
+
+
+### Create a staff
+POST http://localhost:8080/staff/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkzMzYyMDMsImV4cCI6MTY5OTQyMjYwM30.cHR4z-8__Rnpx8KvPstzNvI_AfY5hzK2kVqwcXvzfUU
+{
+    "name": "andy",
+    "location": "my house",
+    "skill": "10",
+    "assignedFacility": "6549b96a46d72ec703ab899d",
+    "phoneNumber": "1234567890"
+}
+
+### Get all staff
+GET http://localhost:8080/staff/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkzMzYyMDMsImV4cCI6MTY5OTQyMjYwM30.cHR4z-8__Rnpx8KvPstzNvI_AfY5hzK2kVqwcXvzfUU
+
+
+### Get a staff by id
+GET http://localhost:8080/staff/653049169b5062091f0d04a3
+
+### Update the staff info
+PATCH http://localhost:8080/staff/653049169b5062091f0d04a3
+Content-Type: application/json
+
+{
+    "location": "New York"
+}
+
+### Delete a staff
+DELETE http://localhost:8080/staff/653049169b5062091f0d04a3
