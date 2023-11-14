@@ -16,11 +16,24 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'  # caching dependencies
-      - run: npm ci     # faster than npm install
+          cache: 'npm'
+      - run: npm ci
 
       - name: Run unit tests
         run: npm test
 
+      - name: Archive unit test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: unittest-report
+          path: reports/unittest-report.html
+
+
       - name: ESLint style check
-        run: npx eslint .
+        run: npm run lint
+
+      - name: Archive ESLint style check report
+        uses: actions/upload-artifact@v3
+        with:
+          name: style-check-report
+          path: reports/style-check-report.html
