@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "devStart": "nodemon server.js",
     "lint": "npx eslint . -f node_modules/eslint-html-reporter/reporter.js -o  reports/style-check-report.html"
   },
@@ -41,6 +41,7 @@
         "pageTitle": "Jest Unit Test Report",
         "outputPath": "reports/unittest-report.html"
       }]
-    ]
+    ],
+    "coverageDirectory": "reports/coverage"
   }
 }

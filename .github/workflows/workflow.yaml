@@ -27,7 +27,12 @@ jobs:
         with:
           name: unittest-report
           path: reports/unittest-report.html
-
+      
+      - name: Archive coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: reports/coverage/
 
       - name: ESLint style check
         run: npm run lint

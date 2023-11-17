@@ -2,6 +2,12 @@
 
 OptiStaff API provides a Smart Dynamic Scheduler, streamlining the task of building and managing schedules, onboarding the new staff, and more.
 
+## Client Link
+
+Link to our client app repo: 
+https://github.com/andyccxu/w4156-project-frontend
+
+
 ## Install packages
 
 ```bash
@@ -33,15 +39,41 @@ node server.js
 ctrl + c
 ```
 
-For API testing, we recommend [Postman](https://www.postman.com/). It offers a comprehensive suite to test, develop, and document APIs.
-
 ## Running Tests
 
-To run tests, simply use the following command:
+### Static Analysis
+
+We use [ESLint](https://eslint.org) as our style checker and static analysis bug finder.
+
+To run the tool for static analysis, run
+
+```bash
+npm run lint
+```
+
+The style check report is located at `reports/style-check-report.html`.
+
+### Unit Testing
+
+To run the unit tests using Jest, simply use the following command:
 
 ```bash
 npm test
 ```
+
+The unit test report is located at `reports/unittest-report.html`.
+
+The coverage report is located at `reports/coverage/index.html`.
+
+
+### API Testing
+We use [Postman](https://www.postman.com/) for API testing. It offers a comprehensive suite to test, develop, and document APIs.
+
+To go to our Postman Workspace, please follow this [link][def].
+
+[def]: https://fourloop-w4156.postman.co/workspace/FourLoop-Workspace~7d14ccca-960e-46d4-8e9a-f136067db94f/collection/30540115-e83a1e38-5a7c-4bb3-ab6f-9df20d19ed42?action=share&creator=30515967
+
+
 
 ## Endpoints
 
@@ -307,8 +339,4 @@ Before using any other endpoint, user must create a user and sign up, and use th
   - `404: Notification Not Found`
   - `500: Internal Server Error`
 
-## Postman Workspace for API Test
 
-Please follow this [link][def]
-
-[def]: https://fourloop-w4156.postman.co/workspace/FourLoop-Workspace~7d14ccca-960e-46d4-8e9a-f136067db94f/collection/30540115-e83a1e38-5a7c-4bb3-ab6f-9df20d19ed42?action=share&creator=30515967
