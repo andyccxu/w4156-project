@@ -28,7 +28,6 @@ async function getAllController(req, res) {
  */
 function getOneController(req, res) {
   res.json({
-    sid: req.params.id,
     schedule: res.schedule,
   });
 }
@@ -65,7 +64,7 @@ async function createController(req, res) {
 
   const shifts = scheduling.computeShifts(facility.operatingHours.start,
       facility.operatingHours.end,
-      facility.numShifts);
+      facility.numberShifts);
 
   // create a new schedule entry for each staff
   for (const staff of staffMembers) {
@@ -164,8 +163,8 @@ async function patchController(req, res) {
   // update the shifts property of the schedule
   try {
     await Schedule.findOneAndUpdate(
-        {_id: req.params.id},
-        {shifts: req.body.shifts},
+        {_id: res.schedule._id},
+        {$set: {shifts: req.body.shifts}},
     );
   } catch (err) {
     res.status(500).json({message: err.message});
@@ -174,6 +173,7 @@ async function patchController(req, res) {
 
   res.status(200).json({
     message: 'Success: shifts schedule updated',
+    schedule: res.schedule,
   });
 }
 

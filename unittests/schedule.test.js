@@ -85,7 +85,6 @@ describe('Controller functions for /schedules', () => {
       await getOneController(req, res);
 
       expect(res.statusCode).toBe(200);
-      expect(res._getJSONData().sid).toBe('123');
       expect(res._getJSONData().schedule).toStrictEqual({
         _id: '123',
         shifts: ['some mysterious shifts'],
