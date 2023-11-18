@@ -44,7 +44,8 @@ async function createController(req, res) {
   const facility = await Facility.findOne({facilityName: fname});
   if (!facility) {
     // cannot find the facility
-    res.status(404).json({message: 'Cannot find the facility: ', fname});
+    res.status(404).json({message: 'Cannot find the facility',
+      facility: fname});
     return;
   }
 
@@ -64,7 +65,7 @@ async function createController(req, res) {
 
   const shifts = scheduling.computeShifts(facility.operatingHours.start,
       facility.operatingHours.end,
-      facility.numberShifts);
+      facility.numShifts);
 
   // create a new schedule entry for each staff
   for (const staff of staffMembers) {
@@ -115,8 +116,7 @@ async function patchController(req, res) {
       await instance.validate();
     } catch (error) {
       res.status(400).json({
-        error: error.message,
-        message: 'Error: Invalid input format.',
+        message: error.message,
       });
       return;
     }
@@ -125,8 +125,8 @@ async function patchController(req, res) {
     if (!moment(shift.start, 'HH:mm', true).isValid() ||
     !moment(shift.end, 'HH:mm', true).isValid()) {
       res.status(400).json({
-        input_start: shift.start,
-        input_end: shift.end,
+        start: shift.start,
+        end: shift.end,
         message: 'Error: Invalid start/end time format. ' +
         'Strict parsing with format HH:mm.',
       });
@@ -186,7 +186,7 @@ async function patchController(req, res) {
 async function deleteController(req, res) {
   try {
     await res.schedule.deleteOne();
-    res.json({message: 'Deleted schedule'});
+    res.status(200).json({message: 'Deleted schedule'});
   } catch (err) {
     res.status(500).json({message: err.message});
   }
