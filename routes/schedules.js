@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const {Schedule} = require('../models/Schedule');
-const Facility = require('../models/Facility');
+const {getFacility} = require('../routes/facilities');
 
 const scheduleController = require('../controllers/scheduleController');
 
@@ -48,30 +48,8 @@ async function getSchedule(req, res, next) {
   }
 
   res.schedule = schedule;
-  next();
-}
-
-/**
- * Middleware that get one facility by _id.
- *
- * @async
- * @param {*} req The request object.
- * @param {*} res The response object.
- * @param {*} next The next function executes the succeeding
- * middleware when invoked.
- * @return {int}
- */
-async function getFacility(req, res, next) {
-  try {
-    facility = await Facility.findById(res.schedule.facilityId);
-    if (facility == null) {
-      return res.status(404).json({message: 'Cannot find the facility'});
-    }
-  } catch (err) {
-    return res.status(500).json({message: err.message});
-  }
-
-  res.facility = facility;
+  // set req.params.id for the next middleware
+  req.params.id = schedule.facilityId;
   next();
 }
 

@@ -1,15 +1,23 @@
-// unit tests for ../routes/schedules.js
 const httpMocks = require('node-mocks-http');
 
-const {getSchedule} = require('../routes/schedules');
-
-jest.mock('../models/Schedule');
 const Schedule = require('../models/Schedule').Schedule;
+
+// middleware function
+const {getSchedule} = require('../routes/schedules');
 
 
 describe('getSchedule Middleware', () => {
-  // these are all mocked
+  // these objects are all mocked
   let req; let res; let next;
+
+  beforeAll(() => {
+    jest.mock('../models/Schedule');
+  });
+
+  afterAll(() => {
+    // restore the original implementation
+    jest.restoreAllMocks();
+  });
 
   beforeEach(() => {
     req = httpMocks.createRequest();
