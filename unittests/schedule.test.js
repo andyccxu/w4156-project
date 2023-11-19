@@ -104,7 +104,7 @@ describe('Controller functions for /schedules', () => {
           start: '09:00',
           end: '17:00',
         },
-        numShifts: 2,
+        numberShifts: 2,
       });
     });
 
