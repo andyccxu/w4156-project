@@ -1,5 +1,4 @@
 node_modules/
-api_tests/
 reports/
 .env
 .DS_Store

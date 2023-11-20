@@ -1,0 +1,34 @@
+
+### Get all schedules
+GET http://localhost:8080/schedules/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE3MDAzMjgxMjMsImV4cCI6MTcwMDQxNDUyM30.8DFBXhabKzWIVnrF6YcJPWK0a9BgF5RyoJXJzuwcJzg
+
+### Create a schedule
+POST http://localhost:8080/schedules/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkyNDY2ODUsImV4cCI6MTY5OTMzMzA4NX0.uuEE346sv015hRE1SNhlgNXjsenACRVqubHwL0y6nLQ
+
+{
+    "facility": "Facility 2"
+}
+
+### Update a schedule
+PATCH http://localhost:8080/schedules/6549bbcdfc390150a0c2d72d
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkyNDY2ODUsImV4cCI6MTY5OTMzMzA4NX0.uuEE346sv015hRE1SNhlgNXjsenACRVqubHwL0y6nLQ
+
+{
+    "shifts": [
+        {
+            "staffId": "65304603c332fad40ff7c1f0",
+            "start": "12:00",
+            "end": "14:00",
+            "days": ["Mo", "Tu", "We", "Th", "Fr"]
+        }
+    ]
+}
+
+
+### Delete a schedule
+DELETE http://localhost:8080/schedules/6549bd900a668302cfec8077
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkyNDY2ODUsImV4cCI6MTY5OTMzMzA4NX0.uuEE346sv015hRE1SNhlgNXjsenACRVqubHwL0y6nLQ
