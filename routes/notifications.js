@@ -3,61 +3,23 @@ const express = require('express');
 const router = express.Router();
 const Notification = require('../models/Notification');
 
-// Get all schedules
-router.get('/', async (req, res) => {
-  try {
-    const notifications = await Notification.find();
-    res.json(notifications);
-  } catch (err) {
-    res.status(500).json({message: err.message});
-  }
-});
+const notificationController = require('../controllers/notificationController');
 
-// Getting one
-router.get('/:id', getNotification, (req, res) => {
-  res.send(res.notification);
-});
 
-// Creating one
-router.post('/', async (req, res) => {
-  const notification = new Notification({
-    title: req.body.title,
-    content: req.body.content,
-  });
-  try {
-    const newNotification = await notification.save();
-    res.status(201).json(newNotification);
-  } catch (err) {
-    res.status(400).json({message: err.message});
-  }
-});
+// GET all notifications
+router.get('/', notificationController.getAllController);
 
-// Updating one
-router.patch('/:id', getNotification, async (req, res) => {
-  if (req.body.title != null) {
-    res.notification.title = req.body.title;
-  }
-  if (req.body.content != null) {
-    res.notification.content = req.body.content;
-  }
+// GET one notification
+router.get('/:id', getNotification, notificationController.getOneController);
 
-  try {
-    const updatedNotification = await res.notification.save();
-    res.json(updatedNotification);
-  } catch (err) {
-    res.status(400).json({message: err.message});
-  }
-});
+// POST one notification
+router.post('/', notificationController.createController);
 
-// Deleting one
-router.delete('/:id', getNotification, async (req, res) => {
-  try {
-    await res.notification.deleteOne();
-    res.json({message: 'Deleted notification!'});
-  } catch (err) {
-    res.status(500).json({message: err.message});
-  }
-});
+// PATCH update one notification
+router.patch('/:id', getNotification, notificationController.patchController);
+
+// DELETE one notification
+router.delete('/:id', getNotification, notificationController.deleteController);
 
 /**
  * Middleware function to get a notification by ID
