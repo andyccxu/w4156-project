@@ -2,54 +2,77 @@ const express = require('express');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 const Facility = require('../models/Facility');
+const User = require('../models/User');
 
-// Getting all facilities
+// Getting the user's managed facility
 router.get('/', async (req, res) => {
   try {
-    const facilities = await Facility.find();
-    res.json(facilities);
+    const user = await User.findById(req.user._id).populate('managedFacility');
+    if (!user.managedFacility) {
+      // eslint-disable-next-line max-len
+      return res.status(404).json({message: 'No facility managed by this user'});
+    }
+    res.json(user.managedFacility);
   } catch (err) {
     res.status(500).json({message: err.message});
   }
 });
 
-// Getting one facility by id
-router.get('/:id', getFacility, (req, res) => {
-  res.send(res.facility);
-});
-
-// Creating one facility
+// Creating a facility
 router.post('/', async (req, res) => {
-  const facility = new Facility({
-    facilityName: req.body.facilityName,
-    facilityType: req.body.facilityType,
-    operatingHours: req.body.operatingHours,
-    numberEmployees: req.body.numberEmployees,
-    numberShifts: req.body.numberShifts,
-    numberDays: req.body.numberDays,
-  });
   try {
+    const user = await User.findById(req.user._id);
+    if (user.managedFacility) {
+      return res.status(400).json({message: 'User already manages a facility'});
+    }
+
+    const facility = new Facility({
+      facilityName: req.body.facilityName,
+      facilityType: req.body.facilityType,
+      operatingHours: req.body.operatingHours,
+      numberEmployees: req.body.numberEmployees,
+      numberShifts: req.body.numberShifts,
+      numberDays: req.body.numberDays,
+      manager: req.user._id,
+    });
+
     const newFacility = await facility.save();
+    user.managedFacility = newFacility._id;
+    await user.save();
+
     res.status(201).json(newFacility);
   } catch (err) {
     res.status(400).json({message: err.message});
   }
 });
 
-// Updating one facility by id
-router.patch('/:id', getFacility, async (req, res) => {
-  if (req.body.facilityName != null) {
-    res.facility.facilityName = req.body.facilityName;
-  }
-  if (req.body.facilityType != null) {
-    res.facility.facilityType = req.body.facilityType;
-  }
-  if (req.body.operatingHours != null) {
-    res.facility.operatingHours = req.body.operatingHours;
-  }
-  // ... other fields later ...
-
+// Updating the user's managed facility
+router.patch('/', getFacility, async (req, res) => {
   try {
+    // Update the fields
+    if (req.body.facilityName != null) {
+      res.facility.facilityName = req.body.facilityName;
+    }
+    if (req.body.facilityType != null) {
+      res.facility.facilityType = req.body.facilityType;
+    }
+    if (req.body.operatingHours != null) {
+      res.facility.operatingHours = req.body.operatingHours;
+    }
+    if (req.body.numberEmployees != null) {
+      res.facility.numberEmployees = req.body.numberEmployees;
+    }
+    if (req.body.numberShifts != null) {
+      res.facility.numberShifts = req.body.numberShifts;
+    }
+    if (req.body.numberDays != null) {
+      res.facility.numberDays = req.body.numberDays;
+    }
+    if (req.body.employees != null) {
+      res.facility.employees = req.body.employees;
+    }
+    // ... other fields later ...
+
     const updatedFacility = await res.facility.save();
     res.json(updatedFacility);
   } catch (err) {
@@ -57,18 +80,28 @@ router.patch('/:id', getFacility, async (req, res) => {
   }
 });
 
-// Deleting one facility by id
-router.delete('/:id', getFacility, async (req, res) => {
+// Deleting the user's managed facility
+router.delete('/', async (req, res) => {
   try {
-    await res.facility.deleteOne();
+    const user = await User.findById(req.user._id);
+    if (!user.managedFacility) {
+      // eslint-disable-next-line max-len
+      return res.status(404).json({message: 'No facility managed by this user'});
+    }
+
+    await Facility.deleteOne({_id: user.managedFacility});
+    user.managedFacility = null;
+    await user.save();
+
     res.json({message: 'Deleted facility'});
   } catch (err) {
     res.status(500).json({message: err.message});
   }
 });
 
+
 /**
- * Middleware that get one schedule by _id.
+ * Middleware that get one facility by _id.
  *
  * @async
  * @function
@@ -82,16 +115,16 @@ router.delete('/:id', getFacility, async (req, res) => {
 async function getFacility(req, res, next) {
   let facility;
   try {
-    facility = await Facility.findById(req.params.id);
-    if (facility == null) {
-      return res.status(404).json({message: 'Cannot find the facility'});
+    facility = await Facility.findOne({manager: req.user._id});
+    if (!facility) {
+      // eslint-disable-next-line max-len
+      return res.status(404).json({message: 'No facility managed by this user'});
     }
+    res.facility = facility;
+    next();
   } catch (err) {
     return res.status(500).json({message: err.message});
   }
-
-  res.facility = facility;
-  next();
 }
 
 

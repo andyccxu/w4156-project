@@ -6,7 +6,7 @@ const router = express.Router();
 
 const {Schedule, ScheduleEntry} = require('../models/Schedule');
 const Facility = require('../models/Facility');
-const Staff = require('../models/Staff');
+const Employee = require('../models/Employee');
 
 const scheduling = require('../service/scheduling');
 
@@ -40,10 +40,10 @@ router.post('/', async (req, res) => {
     return;
   }
 
-  // get all the staff working at the facility
-  let staffMembers;
+  // get all the employees working at the facility
+  let employees;
   try {
-    staffMembers = await Staff.find({assignedFacility: facility._id});
+    employees = await Employee.find({assignedFacility: facility._id});
   } catch (err) {
     res.status(500).json({message: err.message});
     return;
@@ -59,12 +59,12 @@ router.post('/', async (req, res) => {
       facility.numberShifts);
 
   // create a new schedule entry for each staff
-  for (const staff of staffMembers) {
+  for (const employee of employees) {
     // randomly select a shift
     const shift = shifts[Math.floor(Math.random() * shifts.length)];
 
     const scheduleEntry = new ScheduleEntry({
-      staffId: staff._id,
+      staffId: employee._id,
       start: shift.start,
       end: shift.end,
     });
