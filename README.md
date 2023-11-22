@@ -79,11 +79,11 @@ To go to our Postman Workspace, please follow this [link][def].
 
 ### User Authentication
 
-Before using any other endpoint, user must create a user and sign up, and use the appropriate bearer token in subsequent requests. 
+Before using any other endpoint, user must create an account by signing up, then obtain the auth token via login and use the appropriate bearer token in subsequent requests.
+
 #### `POST /auth/signup`
 
-- **URL:** `http://localhost:8080/auth/signup`
-- **Description:** 
+- **Description:**
     Signup a new user.
 - **Request Body:**
   - `name: string`
@@ -95,8 +95,7 @@ Before using any other endpoint, user must create a user and sign up, and use th
   
 #### `POST /auth/login`
 
-- **URL:** `http://localhost:8080/auth/login`
-- **Description:** 
+- **Description:**
     Login a user and retrieve an authentication token.
 - **Request Body:**
   - `email: string`
@@ -105,7 +104,6 @@ Before using any other endpoint, user must create a user and sign up, and use th
   - `200: Logged in successfully`
   - `400: Email or password is incorrect or other error`
 
- 
 ### Facilities
 
 #### `GET /facilities`
