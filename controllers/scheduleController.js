@@ -2,7 +2,7 @@ const moment = require('moment');
 
 const scheduling = require('../service/scheduling');
 const {Schedule, ScheduleEntry} = require('../models/Schedule');
-const Staff = require('../models/Staff');
+const Employee = require('../models/Employee');
 const Facility = require('../models/Facility');
 
 /**
@@ -51,7 +51,7 @@ async function createController(req, res) {
   // get all the staff working at the facility
   let staffMembers;
   try {
-    staffMembers = await Staff.find({assignedFacility: facility._id});
+    staffMembers = await Employee.find({assignedFacility: facility._id});
   } catch (err) {
     res.status(500).json({message: err.message});
     return;

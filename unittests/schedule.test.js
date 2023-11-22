@@ -4,7 +4,7 @@ const moment = require('moment');
 const Schedule = require('../models/Schedule').Schedule;
 const ScheduleEntry = require('../models/Schedule').ScheduleEntry;
 const Facility = require('../models/Facility');
-const Staff = require('../models/Staff');
+const Employee = require('../models/Employee');
 
 // middleware function
 const {getSchedule} = require('../routes/schedules');
@@ -130,7 +130,7 @@ describe('Controller functions for /schedules', () => {
 
     it('should return 500 when database error', async () => {
       // mock the behavior of Facility.findOne such that it throws an error
-      Staff.find = jest.fn().mockRejectedValue(new Error('Database error'));
+      Employee.find = jest.fn().mockRejectedValue(new Error('Database error'));
 
       req.body = {
         facility: 'some facility',
@@ -149,8 +149,8 @@ describe('Controller functions for /schedules', () => {
         facility: 'some facility',
       };
 
-      // mock Staff.find() to return an empty array
-      Staff.find = jest.fn().mockResolvedValue([
+      // mock Employee.find() to return an empty array
+      Employee.find = jest.fn().mockResolvedValue([
         {
           _id: '1',
           assignedFacility: '123',

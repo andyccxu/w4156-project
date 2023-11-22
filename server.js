@@ -38,8 +38,8 @@ app.use('/notifications', verifyAuth, notificationsRouter);
 const {router: schedulesRouter} = require('./routes/schedules');
 app.use('/schedules', verifyAuth, schedulesRouter);
 
-const {router: staffRouter} = require('./routes/employees');
-app.use('/employees', verifyAuth, staffRouter);
+const {router: employeesRouter} = require('./routes/employees');
+app.use('/employees', verifyAuth, employeesRouter);
 
 
 app.get('/', (req, res) => {

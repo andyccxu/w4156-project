@@ -3,11 +3,9 @@ const express = require('express');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-const {Schedule, ScheduleEntry} = require('../models/Schedule');
-const Facility = require('../models/Facility');
-const Employee = require('../models/Employee');
-
+const {Schedule} = require('../models/Schedule');
 const scheduleController = require('../controllers/scheduleController');
+const {getFacility} = require('./facilities');
 
 
 // GET all shifting schedules
@@ -17,58 +15,7 @@ router.get('/', scheduleController.getAllController);
 router.get('/:id', getSchedule, scheduleController.getOneController);
 
 // POST new schedule for a facility
-router.post('/', async (req, res) => {
-  // query the facility by name
-  const fname = req.body.facility;
-  const facility = await Facility.findOne({facilityName: fname});
-  if (!facility) {
-    // cannot find the facility
-    res.status(404).json({message: 'Cannot find the facility: ', fname});
-    return;
-  }
-
-  // get all the employees working at the facility
-  let employees;
-  try {
-    employees = await Employee.find({assignedFacility: facility._id});
-  } catch (err) {
-    res.status(500).json({message: err.message});
-    return;
-  }
-
-  // create a new schedule
-  schedule = new Schedule({
-    facilityId: facility._id,
-  });
-
-  const shifts = scheduling.computeShifts(facility.operatingHours.start,
-      facility.operatingHours.end,
-      facility.numberShifts);
-
-  // create a new schedule entry for each staff
-  for (const employee of employees) {
-    // randomly select a shift
-    const shift = shifts[Math.floor(Math.random() * shifts.length)];
-
-    const scheduleEntry = new ScheduleEntry({
-      staffId: employee._id,
-      start: shift.start,
-      end: shift.end,
-    });
-
-    // we fill the shifts field of the schedule
-    schedule.shifts.push(scheduleEntry);
-  }
-
-
-  try {
-    const newSchedule = await schedule.save();
-    res.status(201).json(newSchedule);
-  } catch (err) {
-    // something wrong with the user input
-    res.status(400).json({message: err.message});
-  }
-});
+router.post('/', scheduleController.createController);
 
 // PATCH update a specific schedule entry
 router.patch('/:id', getSchedule, getFacility,
