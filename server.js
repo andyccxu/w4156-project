@@ -26,6 +26,9 @@ app.use(cors());
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter);
 
+const usersRouter = require('./routes/users');
+app.use('/users', verifyAuth, usersRouter);
+
 const {router: facilitiesRouter} = require('./routes/facilities');
 app.use('/facilities', verifyAuth, facilitiesRouter);
 
@@ -35,8 +38,8 @@ app.use('/notifications', verifyAuth, notificationsRouter);
 const {router: schedulesRouter} = require('./routes/schedules');
 app.use('/schedules', verifyAuth, schedulesRouter);
 
-const {router: staffRouter} = require('./routes/staff');
-app.use('/staff', verifyAuth, staffRouter);
+const {router: staffRouter} = require('./routes/employees');
+app.use('/employees', verifyAuth, staffRouter);
 
 
 app.get('/', (req, res) => {

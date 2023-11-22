@@ -4,7 +4,7 @@ const facilitySchema = new mongoose.Schema({
   facilityName: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
     trim: true,
   },
   facilityType: {
@@ -13,14 +13,8 @@ const facilitySchema = new mongoose.Schema({
     required: true,
   },
   operatingHours: {
-    start: {
-      type: String,
-      required: true,
-    },
-    end: {
-      type: String,
-      required: true,
-    },
+    start: {type: String, required: true},
+    end: {type: String, required: true},
   },
   numberEmployees: {
     type: String,
@@ -34,15 +28,15 @@ const facilitySchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
-  managedBy: {
+  employees: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employee',
+  }],
+  manager: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    // required: true,
+    required: true,
   },
-  staffAssigned: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Staff',
-  }],
   // peakHours: {
   //   start: String,
   //   end: String,
@@ -52,16 +46,6 @@ const facilitySchema = new mongoose.Schema({
   //   count: Number,
   //   skillLevel: String
   // }],
-  // location: {
-  //   type: {
-  //     type: String,
-  //     default: 'Point'
-  //   },
-  //   coordinates: {
-  //     type: [Number]
-  //   //   required: true
-  //   }
-  // },
   // currentSchedules: [{
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Schedule'
@@ -79,7 +63,6 @@ const Facility = mongoose.model('Facility', facilitySchema);
 // we check that the database connection is open before
 // calling createIndexes()
 const db = mongoose.connection;
-
 db.once('open', function() {
   Facility.createIndexes()
       .catch((err) => {

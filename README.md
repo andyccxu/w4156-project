@@ -79,7 +79,7 @@ To go to our Postman Workspace, please follow this [link][def].
 
 ### User Authentication
 
-Before using any other endpoint, user must create an account by signing up, then obtain the auth token via login and use the appropriate bearer token in subsequent requests.
+Before using any other endpoint, user must create an account by signing up, then obtain the auth token via login and use the appropriate bearer token in subsequent requests. Each user acts as a manager of the facility and thus can have at most one facility at any time.
 
 #### `POST /auth/signup`
 
@@ -109,20 +109,10 @@ Before using any other endpoint, user must create an account by signing up, then
 #### `GET /facilities`
 
 - **Description:**
-    Retrieve all facilities from the database.
+    Retrieve the user's facility from the database.
 - **Response Codes:**
   - `200: Success`
   - `500: Internal Server Error`
-
-#### `GET /facilities/:id`
-
-- **Description:**
-    Retrieve a specific facility by ID from the database.
-- **Request Parameters:**
-  - `id: string`
-- **Response Codes:**
-  - `200: Success`
-  - `404: Facility Not Found`
 
 #### `POST /facilities`
 
@@ -137,14 +127,12 @@ Before using any other endpoint, user must create an account by signing up, then
   - `numberDays: int`
 - **Response Codes:**
   - `201: Success`
-  - `400: Invalid Input`
+  - `400: User already manages a facility`
 
-#### `PATCH /facilities/:id`
+#### `PATCH /facilities`
 
 - **Description:**
-    Update the details of a specific facility by ID.
-- **Request Parameters:**
-  - `id: string`
+    Update the details of the user's facility.
 - **Request Body (any of the following optional):**
   - `facilityName: string`
   - `facilityType: string`
@@ -154,79 +142,76 @@ Before using any other endpoint, user must create an account by signing up, then
   - `numberDays: int`
 - **Response Codes:**
   - `200: Success`
-  - `400: Invalid Input`
-  - `404: Facility Not Found`
+  - `404: No facility managed by this user`
 
-#### `DELETE /facilities/:id`
+#### `DELETE /facilities`
 
 - **Description:**
-    Delete a specific facility by ID from the database.
+    Delete user's facility.
+- **Response Codes:**
+  - `200: Success`
+  - `404: No facility managed by this user`
+
+### Employees
+
+#### `GET /employees`
+
+- **Description:**
+    Retrieves all user's employees from the database.
+- **Response Codes:**
+  - `200: Success`
+  - `404: No facility managed by this user`
+
+#### `GET /employees/:id`
+
+- **Description:**
+    Retrieves a specific employee by ID from the database.
 - **Request Parameters:**
   - `id: string`
 - **Response Codes:**
   - `200: Success`
-  - `404: Facility Not Found`
-  - `500: Internal Server Error`
+  - `404: Cannot find the employee`
 
-### Staff
-
-#### `GET /staff`
+#### `POST /employees`
 
 - **Description:**
-    Retrieves all staff members from the database.
-- **Response Codes:**
-  - `200: Success`
-  - `500: Internal Server Error`
-
-#### `GET /staff/:id`
-
-- **Description:**
-    Retrieves a specific staff member by ID from the database.
-- **Request Parameters:**
-  - `id: string`
-- **Response Codes:**
-  - `200: Success`
-  - `404: Staff Member Not Found`
-
-#### `POST /staff`
-
-- **Description:**
-    Adds a staff member to the database with the specified details.
+    Adds an employee to the facility with the specified details.
 - **Request Body:**
   - `name: string`
-  - `location: string`
-  - `skill: string`
+  - `email: string`
   - `phoneNumber: string`
+  - `address: string` (optional)
+  - `skillLevel: string` (optional)
+
 - **Response Codes:**
   - `201: Success`
-  - `400: Invalid Input`
+  - `400: User does not manage a facility`
 
-#### `PATCH /staff/:id`
+#### `PATCH /employees/:id`
 
 - **Description:**
-    Updates the details of a specific staff member by ID.
+    Updates the details of a specific employee by ID.
 - **Request Parameters:**
   - `id: string`
 - **Request Body (any of the following optional):**
   - `name: string`
-  - `location: string`
-  - `skill: string`
+  - `email: string`
   - `phoneNumber: string`
+  - `address: string`
+  - `skillLevel: string`
 - **Response Codes:**
   - `200: Success`
-  - `400: Invalid Input`
-  - `404: Staff Member Not Found`
+  - `404: Cannot find the employee`
 
-#### `DELETE /staff/:id`
+#### `DELETE /employees/:id`
 
 - **Description:**
-    Deletes a specific staff member by ID from the database.
+    Deletes an employee by ID from the database.
 - **Request Parameters:**
   - `id: string`
 - **Response Codes:**
   - `200: Success`
-  - `404: Staff Member Not Found`
-  - `500: Internal Server Error`
+  - `404: Cannot find the employee`
 
 ### Schedules
 
