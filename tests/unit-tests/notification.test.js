@@ -1,7 +1,7 @@
 const httpMocks = require('node-mocks-http');
 
-const Notification = require('../models/Notification');
-const {getNotification} = require('../routes/notifications');
+const Notification = require('../../models/Notification');
+const {getNotification} = require('../../routes/notifications');
 
 const {
   getAllController,
@@ -9,7 +9,7 @@ const {
   createController,
   patchController,
   deleteController,
-} = require('../controllers/notificationController');
+} = require('../../controllers/notificationController');
 
 describe('Controller functions for /notifications', () => {
   let req;
@@ -22,13 +22,11 @@ describe('Controller functions for /notifications', () => {
     Notification.find = jest.fn().mockResolvedValue([
       {
         _id: '123',
-        title: 'Notification 1',
-        content: 'Content 1',
+        message: 'Notification 1',
       },
       {
         _id: '456',
-        title: 'Notification 2',
-        content: 'Content 2',
+        message: 'Notification 2',
       },
     ]);
   });
@@ -45,13 +43,11 @@ describe('Controller functions for /notifications', () => {
       expect(res._getJSONData()).toStrictEqual([
         {
           _id: '123',
-          title: 'Notification 1',
-          content: 'Content 1',
+          message: 'Notification 1',
         },
         {
           _id: '456',
-          title: 'Notification 2',
-          content: 'Content 2',
+          message: 'Notification 2',
         },
       ]);
     });
@@ -79,8 +75,7 @@ describe('Controller functions for /notifications', () => {
 
       res.notification = {
         _id: '123',
-        title: 'Notification 1',
-        content: 'Content 1',
+        message: 'Notification 1',
       };
 
       await getOneController(req, res);
@@ -88,8 +83,7 @@ describe('Controller functions for /notifications', () => {
       expect(res.statusCode).toBe(200);
       expect(res._getJSONData().notification).toStrictEqual({
         _id: '123',
-        title: 'Notification 1',
-        content: 'Content 1',
+        message: 'Notification 1',
       });
     });
   });
@@ -97,14 +91,13 @@ describe('Controller functions for /notifications', () => {
   describe('createController', () => {
     it('should create a new notification', async () => {
       req.body = {
-        title: 'New Notification',
-        content: 'New Content',
+        employeeId: 'New Notification',
+        message: 'New Content',
       };
 
       Notification.prototype.save = jest.fn().mockResolvedValue({
         _id: '789',
-        title: 'New Notification',
-        content: 'New Content',
+        message: 'New Notification',
       });
 
       await createController(req, res);

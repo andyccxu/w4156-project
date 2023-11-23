@@ -23,7 +23,8 @@
     "mongoose": "^7.6.3",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
-    "postman-to-markdown": "^1.1.0"
+    "postman-to-markdown": "^1.1.0",
+    "twilio": "^4.19.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.6",
@@ -37,10 +38,13 @@
   "jest": {
     "reporters": [
       "default",
-      ["jest-html-reporter", {
-        "pageTitle": "Jest Unit Test Report",
-        "outputPath": "reports/unittest-report.html"
-      }]
+      [
+        "jest-html-reporter",
+        {
+          "pageTitle": "Jest Unit Test Report",
+          "outputPath": "reports/unittest-report.html"
+        }
+      ]
     ],
     "coverageDirectory": "reports/coverage"
   }

@@ -17,15 +17,17 @@ const facilitySchema = new mongoose.Schema({
     end: {type: String, required: true},
   },
   numberEmployees: {
-    type: String,
-    // required: true,
+    type: Number,
+    default: 0,
   },
   numberShifts: {
     type: String,
+    default: 1,
     // required: true,
   },
   numberDays: {
     type: String,
+    default: 5,
     // required: true,
   },
   employees: [{

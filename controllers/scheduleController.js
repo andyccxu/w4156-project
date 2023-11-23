@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const scheduling = require('../service/scheduling');
+const scheduling = require('../services/scheduling');
 const {Schedule, ScheduleEntry} = require('../models/Schedule');
 const Employee = require('../models/Employee');
 const Facility = require('../models/Facility');

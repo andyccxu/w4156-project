@@ -1,8 +1,8 @@
-const {getEmployee} = require('../routes/employees');
-const Employee = require('../models/Employee');
+const {getEmployee} = require('../../routes/employees');
+const Employee = require('../../models/Employee');
 const httpMocks = require('node-mocks-http');
 
-jest.mock('../models/Employee');
+jest.mock('../../models/Employee');
 
 describe('Middleware getEmployee', () => {
   let req; let res; let next;
