@@ -39,11 +39,21 @@ function getOneController(req, res) {
  */
 async function createController(req, res) {
   // query the facility by name
-  const facility = await Facility.findOne({_id: req.body.facility});
+  const fname = req.body.facility;
+  const facility = await Facility.findOne({facilityName: fname});
   if (!facility) {
     // cannot find the facility
     res.status(404).json({message: 'Cannot find the facility',
-      facility: req.body.facility});
+      facility: fname});
+    return;
+  }
+
+  // get all the staff working at the facility
+  let staffMembers;
+  try {
+    staffMembers = await Employee.find({assignedFacility: facility._id});
+  } catch (err) {
+    res.status(500).json({message: err.message});
     return;
   }
 
@@ -57,8 +67,7 @@ async function createController(req, res) {
       facility.numberShifts);
 
   // create a new schedule entry for each staff
-  for (const employeeId of facility.employees) {
-    staff = await Employee.findOne({_id: employeeId});
+  for (const staff of staffMembers) {
     // randomly select a shift
     const shift = shifts[Math.floor(Math.random() * shifts.length)];
 
