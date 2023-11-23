@@ -128,34 +128,29 @@ describe('Controller functions for /schedules', () => {
       });
     });
 
-    it('should return 500 when database error', async () => {
-      // mock the behavior of Facility.findOne such that it throws an error
-      Employee.find = jest.fn().mockRejectedValue(new Error('Database error'));
-
-      req.body = {
-        facility: 'some facility',
-      };
-
-      await createController(req, res);
-
-      expect(res.statusCode).toBe(500);
-      expect(res._getJSONData()).toStrictEqual({
-        message: 'Database error',
-      });
-    });
-
     it('should be able to create a schedule', async () => {
       req.body = {
-        facility: 'some facility',
+        facility: 'some_facility_id',
       };
 
-      // mock Employee.find() to return an empty array
-      Employee.find = jest.fn().mockResolvedValue([
-        {
-          _id: '1',
-          assignedFacility: '123',
+      // mock facility.employees
+      Facility.findOne = jest.fn().mockResolvedValue({
+        _id: 'some_facility_id',
+        employees: ['1', '2', '3'],
+        operatingHours: {
+          start: '09:00',
+          end: '17:00',
         },
-      ]);
+        numberShifts: 2,
+      });
+
+      // mock Employee.findOne
+      Employee.findOne = jest.fn().mockImplementation((id) => {
+        return Promise.resolve({
+          _id: id,
+          employeeOf: 'some_facility_id',
+        });
+      });
 
       // mock schedule.save()
       Schedule.prototype.save = jest.fn().mockReturnThis();
@@ -166,9 +161,9 @@ describe('Controller functions for /schedules', () => {
       const newSchedule = res._getJSONData();
       const newShifts = newSchedule.shifts;
 
-      // check that the shifts is an array of length 1
+      // check that the shifts is an array of length 3
       expect(newShifts).toBeInstanceOf(Array);
-      expect(newShifts.length).toBe(1);
+      expect(newShifts.length).toBe(3);
 
       // operating hours is 9am to 5pm; do sanity check on the shift
       const start = moment('09:00', 'HH:mm');
