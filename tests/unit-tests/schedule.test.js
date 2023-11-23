@@ -1,13 +1,13 @@
 const httpMocks = require('node-mocks-http');
 const moment = require('moment');
 
-const Schedule = require('../models/Schedule').Schedule;
-const ScheduleEntry = require('../models/Schedule').ScheduleEntry;
-const Facility = require('../models/Facility');
-const Employee = require('../models/Employee');
+const Schedule = require('../../models/Schedule').Schedule;
+const ScheduleEntry = require('../../models/Schedule').ScheduleEntry;
+const Facility = require('../../models/Facility');
+const Employee = require('../../models/Employee');
 
 // middleware function
-const {getSchedule} = require('../routes/schedules');
+const {getSchedule} = require('../../routes/schedules');
 
 // controller functions
 const {
@@ -16,7 +16,7 @@ const {
   createController,
   patchController,
   deleteController,
-} = require('../controllers/scheduleController');
+} = require('../../controllers/scheduleController');
 
 
 describe('Controller functions for /schedules', () => {

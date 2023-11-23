@@ -1,4 +1,7 @@
 const Notification = require('../models/Notification');
+const Employee = require('../models/Employee');
+const {sendSMS} = require('../services/twilioClient');
+require('dotenv').config({path: '../config/config.env'});
 
 /**
  * Controller for route GET /notifications
@@ -34,12 +37,24 @@ function getOneController(req, res) {
  */
 async function createController(req, res) {
   const notification = new Notification({
-    title: req.body.title,
-    content: req.body.content,
+    employeeId: req.body.employeeId,
+    message: req.body.message,
+    manager: req.user._id,
   });
+
+  const employee = await Employee.findById(req.body.employeeId);
 
   try {
     const newNotification = await notification.save();
+
+    const message = newNotification.message;
+    const toPhoneNumber = '+1' + employee.phoneNumber.replace(/-/g, '');
+    try {
+      sendSMS(message, toPhoneNumber);
+    } catch (error) {
+      console.error('SMS sending failed:', error);
+    }
+
     res.status(201).json(newNotification);
   } catch (err) {
     res.status(400).json({message: err.message});
@@ -53,11 +68,8 @@ async function createController(req, res) {
  * @param {*} res Express.js response object
  */
 async function patchController(req, res) {
-  if (req.body.title != null) {
-    res.notification.title = req.body.title;
-  }
-  if (req.body.content != null) {
-    res.notification.content = req.body.content;
+  if (req.body.message != null) {
+    res.notification.message = req.body.message;
   }
 
   try {

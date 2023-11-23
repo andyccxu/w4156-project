@@ -1,10 +1,10 @@
-const {getFacility} = require('../routes/facilities');
-const Facility = require('../models/Facility');
+const {getFacility} = require('../../routes/facilities');
+const Facility = require('../../models/Facility');
 // const User = require('../models/User');
 const httpMocks = require('node-mocks-http');
 
-jest.mock('../models/Facility');
-jest.mock('../models/User');
+jest.mock('../../models/Facility');
+jest.mock('../../models/User');
 
 describe('getFacility Middleware', () => {
   let req; let res; let next;

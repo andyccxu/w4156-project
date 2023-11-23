@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Define the ScheduleEntry subdocument schema
 const scheduleEntrySchema = new mongoose.Schema({
-  staffId: {
+  employeeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Staff',
     required: true,

@@ -4,9 +4,8 @@ OptiStaff API provides a Smart Dynamic Scheduler, streamlining the task of build
 
 ## Client Link
 
-Link to our client app repo: 
-https://github.com/andyccxu/w4156-project-frontend
-
+Link to our client app repo:
+<https://github.com/andyccxu/w4156-project-frontend>
 
 ## Install packages
 
@@ -65,15 +64,13 @@ The unit test report is located at `reports/unittest-report.html`.
 
 The coverage report is located at `reports/coverage/index.html`.
 
-
 ### API Testing
+
 We use [Postman](https://www.postman.com/) for API testing. It offers a comprehensive suite to test, develop, and document APIs.
 
 To go to our Postman Workspace, please follow this [link][def].
 
 [def]: https://fourloop-w4156.postman.co/workspace/FourLoop-Workspace~7d14ccca-960e-46d4-8e9a-f136067db94f/collection/30540115-e83a1e38-5a7c-4bb3-ab6f-9df20d19ed42?action=share&creator=30515967
-
-
 
 ## Endpoints
 
@@ -321,5 +318,4 @@ Before using any other endpoint, user must create an account by signing up, then
   - `200: Success`
   - `404: Notification Not Found`
   - `500: Internal Server Error`
-
-
+  
