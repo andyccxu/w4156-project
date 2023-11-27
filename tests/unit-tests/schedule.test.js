@@ -96,7 +96,7 @@ describe('Controller functions for /schedules', () => {
     // before each test case, we mock the Facility model
     // by setting the return value of findOne
     beforeEach(() => {
-      jest.mock('../models/Facility');
+      jest.mock('../../models/Facility');
       Facility.findOne = jest.fn().mockResolvedValue({
         _id: '123',
         facilityName: 'some facility',
@@ -112,7 +112,7 @@ describe('Controller functions for /schedules', () => {
       // mock the behavior of Facility.findOne such that it returns null
       // meaning that the facility is not found
       jest.clearAllMocks();
-      jest.mock('../models/Facility');
+      jest.mock('../../models/Facility');
       Facility.findOne = jest.fn().mockResolvedValue(null);
 
       req.body = {
@@ -367,7 +367,7 @@ describe('Middleware: getSchedule', () => {
   let req; let res; let next;
 
   beforeAll(() => {
-    jest.mock('../models/Schedule');
+    jest.mock('../../models/Schedule');
   });
 
   afterAll(() => {
