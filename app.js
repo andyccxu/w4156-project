@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const verifyAuth = require('./middlewares/verifyAuth');
 
+const dotenv = require('dotenv');
+// Load config file
+dotenv.config({path: './config/config.env'});
+
 
 const app = express();
 // We want express to parse user input json
