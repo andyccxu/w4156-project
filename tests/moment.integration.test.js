@@ -1,3 +1,6 @@
+// external integration tests
+// for the third-party library: moment.js
+
 const {isOperatingTime, computeShifts} = require('../services/scheduling');
 
 describe('isOperatingTime', () => {
