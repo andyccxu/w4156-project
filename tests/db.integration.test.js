@@ -15,11 +15,10 @@ beforeAll(async () => {
   const url = process.env.MONGO_URI_TEST;
   await mongoose.connect(url);
   // Clean the database before all tests
-  await mongoose.connection.db.dropDatabase();
-  // Rebuild all indexes
-  await User.syncIndexes();
-  await Facility.syncIndexes();
-  await Employee.syncIndexes();
+  const collections = await mongoose.connection.db.collections();
+  for (const collection of collections) {
+    await collection.deleteMany({});
+  }
 });
 
 afterAll(async () => {
@@ -180,7 +179,6 @@ test('should not save an employee with invalid information', async () => {
 });
 
 test('should save a notification', async () => {
-  console.log('employeeId: ' + employeeId);
   const notification = new Notification({
     employeeId: employeeId,
     message: 'Test Message',
