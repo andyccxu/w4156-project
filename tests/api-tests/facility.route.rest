@@ -3,7 +3,7 @@
 ### Get all facilities
 GET http://localhost:8080/facilities
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE3MDAzMjgxMjMsImV4cCI6MTcwMDQxNDUyM30.8DFBXhabKzWIVnrF6YcJPWK0a9BgF5RyoJXJzuwcJzg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTk5MTEsImV4cCI6MTcwMTM4NjMxMX0.DNdcd_GuMqDsGSJrCQGtKKaRuiAScMI0l20Q1zEYi1I
 
 ### Get a facility by id
 GET http://localhost:8080/facilities/65302331162e10b0dff5c6d0
@@ -11,7 +11,7 @@ GET http://localhost:8080/facilities/65302331162e10b0dff5c6d0
 ### Create a facility
 POST http://localhost:8080/facilities/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkzNzE3OTIsImV4cCI6MTY5OTQ1ODE5Mn0.U40K8QID8pqH3efSpMY9LZP5EweGsBfC24fFsF25A7k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTQ1MzEsImV4cCI6MTcwMTM4MDkzMX0.dZqyAgMS5pON_pHxSLXjZ_nDBKSHb6o4pz192ZB26jY
 
 {
     "facilityName": "Facility 2",
@@ -20,9 +20,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN
         "start": "11:00",
         "end": "23:00"
     },
-    "numberEmployees": "5",
-    "numberShifts": "1",
-    "numberDays": "5"
+    "numberShifts": 2
 }
 
 ### Delete a facility

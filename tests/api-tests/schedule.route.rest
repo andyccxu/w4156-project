@@ -1,15 +1,15 @@
 
 ### Get all schedules
 GET http://localhost:8080/schedules/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE3MDAzMjgxMjMsImV4cCI6MTcwMDQxNDUyM30.8DFBXhabKzWIVnrF6YcJPWK0a9BgF5RyoJXJzuwcJzg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTk5MTEsImV4cCI6MTcwMTM4NjMxMX0.DNdcd_GuMqDsGSJrCQGtKKaRuiAScMI0l20Q1zEYi1I
 
 ### Create a schedule
 POST http://localhost:8080/schedules/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkyNDY2ODUsImV4cCI6MTY5OTMzMzA4NX0.uuEE346sv015hRE1SNhlgNXjsenACRVqubHwL0y6nLQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTk5MTEsImV4cCI6MTcwMTM4NjMxMX0.DNdcd_GuMqDsGSJrCQGtKKaRuiAScMI0l20Q1zEYi1I
 
 {
-    "facility": "Facility 2"
+    "facility": "6567b22bfa1c37d7f88d71f5"
 }
 
 ### Update a schedule

@@ -21,7 +21,7 @@ const facilitySchema = new mongoose.Schema({
     default: 0,
   },
   numberShifts: {
-    type: String,
+    type: Number,
     default: 1,
     // required: true,
   },

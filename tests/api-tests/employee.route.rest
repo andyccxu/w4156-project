@@ -1,0 +1,30 @@
+### Create a employee
+POST http://localhost:8080/employees/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTQ1MzEsImV4cCI6MTcwMTM4MDkzMX0.dZqyAgMS5pON_pHxSLXjZ_nDBKSHb6o4pz192ZB26jY
+
+{
+    "name": "cathy",
+    "email": "cathy@ea.com",
+    "assignedFacility": "6567b22bfa1c37d7f88d71f5",
+    "phoneNumber": "1234567890"
+}
+
+### Get all employee
+GET http://localhost:8080/employees/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkzMzYyMDMsImV4cCI6MTY5OTQyMjYwM30.cHR4z-8__Rnpx8KvPstzNvI_AfY5hzK2kVqwcXvzfUU
+
+
+### Get a employee by id
+GET http://localhost:8080/employees/653049169b5062091f0d04a3
+
+### Update the employee info
+PATCH http://localhost:8080/employees/653049169b5062091f0d04a3
+Content-Type: application/json
+
+{
+    "location": "New York"
+}
+
+### Delete a employee
+DELETE http://localhost:8080/employees/653049169b5062091f0d04a3
