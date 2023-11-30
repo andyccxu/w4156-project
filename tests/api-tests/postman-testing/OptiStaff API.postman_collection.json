@@ -9,44 +9,400 @@
 	},
 	"item": [
 		{
-			"name": "Get all facilities",
+			"name": "Signup & Login",
+			"item": [
+				{
+					"name": "Post (create) a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test 2\",\n    \"email\": \"test2@optistaff.com\",\n    \"password\": \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": [
+						{
+							"name": "Post (create) a user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Test 2\",\n    \"email\": \"test2@optistaff.com\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/signup",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-31ApQby8UhnUjoAv0RzdWkCNk+s\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 22:58:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"messsage\": \"User already exists\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Post (login) the user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test2@optistaff.com\",\n    \"password\": \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": [
+						{
+							"name": "Post (login) the user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"test2@optistaff.com\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Authorization",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY5MTM2ZWU5Y2ZkMzQyYzkyYjViMzUiLCJpYXQiOjE3MDEzODUwODksImV4cCI6MTcwMTQ3MTQ4OX0.XJoG2QM8MIcPf1gPrtV-0Jy1q9awz3ILRwsmzZdqZlc"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "219"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"db-UUhYoexUFNY97UuJ8xqXtPuTdas\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 22:58:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Logged in successfully\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY5MTM2ZWU5Y2ZkMzQyYzkyYjViMzUiLCJpYXQiOjE3MDEzODUwODksImV4cCI6MTcwMTQ3MTQ4OX0.XJoG2QM8MIcPf1gPrtV-0Jy1q9awz3ILRwsmzZdqZlc\"\n}"
+						}
+					]
+				}
+			],
+			"description": "These requests test the authentification features of the service.",
+			"auth": {
+				"type": "noauth"
+			},
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
+						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
+							""
+						]
 					}
 				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{base_url}}/facilities",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"facilities"
-					]
-				},
-				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-			},
-			"response": [
+			]
+		},
+		{
+			"name": "User (Manager)",
+			"item": [
 				{
-					"name": "Get all facilities",
-					"originalRequest": {
+					"name": "Get user's data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": [
+						{
+							"name": "Get user's data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "127"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7f-x4CcCYRyghKEvVlAZmanocYOf9A\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 22:59:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"6569136ee9cfd342c92b5b35\",\n    \"name\": \"Test 2\",\n    \"email\": \"test2@optistaff.com\",\n    \"createdAt\": \"2023-11-30T22:57:50.559Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Facilities",
+			"item": [
+				{
+					"name": "Get user's facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
 						"method": "GET",
 						"header": [
 							{
@@ -63,366 +419,908 @@
 							"path": [
 								"facilities"
 							]
-						}
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
+							"name": "Get user's facility",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/facilities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"facilities"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "234"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ea-+Mh7JW9jYSRtw1Sqktm/d0yEx6A\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:06:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"22:00\"\n    },\n    \"_id\": \"6569155be9cfd342c92b5b56\",\n    \"facilityName\": \"Test Facility\",\n    \"facilityType\": \"restaurant\",\n    \"numberShifts\": 2,\n    \"numberDays\": 7,\n    \"employees\": [],\n    \"manager\": \"6569136ee9cfd342c92b5b35\",\n    \"__v\": 0\n}"
 						},
 						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "1436"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"59c-tWBf4Ml46j+CCNuFiYcO1zg5olw\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:42:51 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
+							"name": "Get user's facility",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/facilities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"facilities"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "46"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2e-IK04SwY7+9fji6GCKy98fyvbscM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:08:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"No facility managed by this user\"\n}"
 						}
-					],
-					"cookie": [],
-					"body": "[\n    {\n        \"operatingHours\": {\n            \"start\": \"11:00\",\n            \"end\": \"23:00\"\n        },\n        \"_id\": \"653026ac162e10b0dff5c6da\",\n        \"facilityName\": \"Facility 1\",\n        \"facilityType\": \"other\",\n        \"numberEmployees\": \"5\",\n        \"numberShifts\": \"1\",\n        \"numberDays\": \"5\",\n        \"__v\": 0\n    },\n    {\n        \"operatingHours\": {\n            \"start\": \"11:00\",\n            \"end\": \"23:00\"\n        },\n        \"_id\": \"653026db162e10b0dff5c6e1\",\n        \"facilityName\": \"Facility 1\",\n        \"facilityType\": \"retail\",\n        \"numberEmployees\": \"5\",\n        \"numberShifts\": \"1\",\n        \"numberDays\": \"5\",\n        \"__v\": 0\n    },\n    {\n        \"operatingHours\": {\n            \"start\": \"11:00\",\n            \"end\": \"23:00\"\n        },\n        \"_id\": \"65302764162e10b0dff5c6f1\",\n        \"facilityName\": \"Facility 1\",\n        \"facilityType\": \"retail\",\n        \"numberEmployees\": \"5\",\n        \"numberShifts\": \"1\",\n        \"numberDays\": \"5\",\n        \"__v\": 0\n    },\n    {\n        \"operatingHours\": {\n            \"start\": \"11:00\",\n            \"end\": \"23:00\"\n        },\n        \"_id\": \"653045f4c332fad40ff7c1ee\",\n        \"facilityName\": \"Facility 1\",\n        \"facilityType\": \"retail\",\n        \"numberEmployees\": \"5\",\n        \"numberShifts\": \"1\",\n        \"numberDays\": \"5\",\n        \"staffAssigned\": [],\n        \"__v\": 0\n    },\n    {\n        \"operatingHours\": {\n            \"start\": \"11:00\",\n            \"end\": \"23:00\"\n        },\n        \"_id\": \"6530587eade8520a21a516af\",\n        \"facilityName\": \"Facility 20\",\n        \"facilityType\": \"retail\",\n        \"numberEmployees\": \"5\",\n        \"numberShifts\": \"1\",\n        \"numberDays\": \"5\",\n        \"__v\": 0\n    },\n    {\n        \"operatingHours\": {\n            \"start\": \"11:00\",\n            \"end\": \"23:00\"\n        },\n        \"_id\": \"65305f18eb111829d59f92d6\",\n        \"facilityName\": \"Facility 21\",\n        \"facilityType\": \"retail\",\n        \"numberEmployees\": \"5\",\n        \"numberShifts\": \"1\",\n        \"numberDays\": \"5\",\n        \"__v\": 0\n    },\n    {\n        \"operatingHours\": {\n            \"start\": \"11:00\",\n            \"end\": \"23:00\"\n        },\n        \"_id\": \"6531a1b599cad53b9800d226\",\n        \"facilityName\": \"Facility 21\",\n        \"facilityType\": \"retail\",\n        \"numberEmployees\": \"5\",\n        \"numberShifts\": \"1\",\n        \"numberDays\": \"5\",\n        \"__v\": 0\n    }\n]"
-				}
-			]
-		},
-		{
-			"name": "Get a facilities by ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{base_url}}/facilities/{{facility_id}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"facilities",
-						"{{facility_id}}"
 					]
 				},
-				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-			},
-			"response": [
 				{
-					"name": "Get a facilities by ID",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+					"name": "Post (create) a facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
 							}
-						],
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"facilityName\": \"Test Facility\",\n    \"facilityType\": \"restaurant\",\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"22:00\"\n    },\n    \"numberShifts\": 2,\n    \"numberDays\": 7\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}/facilities/653026ac162e10b0dff5c6da",
+							"raw": "{{base_url}}/facilities/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"facilities",
-								"653026ac162e10b0dff5c6da"
+								""
 							]
-						}
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "200"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"c8-PxIQxGUxPgPQqNky7NpDqTRfpa4\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:42:58 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
+							"name": "Post (create) a facility",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"facilityName\": \"Test Facility\",\n    \"facilityType\": \"restaurant\",\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"22:00\"\n    },\n    \"numberShifts\": 2,\n    \"numberDays\": 7\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/facilities/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"facilities",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "234"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ea-DiZls8rc/iso8zhHPktSgvTFW3I\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:06:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"facilityName\": \"Test Facility\",\n    \"facilityType\": \"restaurant\",\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"22:00\"\n    },\n    \"numberShifts\": 2,\n    \"numberDays\": 7,\n    \"employees\": [],\n    \"manager\": \"6569136ee9cfd342c92b5b35\",\n    \"_id\": \"6569155be9cfd342c92b5b56\",\n    \"__v\": 0\n}"
 						}
-					],
-					"cookie": [],
-					"body": "{\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"23:00\"\n    },\n    \"_id\": \"653026ac162e10b0dff5c6da\",\n    \"facilityName\": \"Facility 1\",\n    \"facilityType\": \"other\",\n    \"numberEmployees\": \"5\",\n    \"numberShifts\": \"1\",\n    \"numberDays\": \"5\",\n    \"__v\": 0\n}"
-				}
-			]
-		},
-		{
-			"name": "Get all notifications",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{base_url}}/notifications",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"notifications"
 					]
 				},
-				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-			},
-			"response": [
 				{
-					"name": "Get all notifications",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+					"name": "Patch (update) user's facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
 							}
-						],
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"facilityName\": \"John's restaurant\",\n    \"facilityType\": \"restaurant\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}/notifications",
+							"raw": "{{base_url}}/facilities",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"notifications"
+								"facilities"
 							]
-						}
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "351"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"15f-dJRO388koVuSuE0QGXjtb1DU3tA\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:43:02 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
+							"name": "Patch (update) user's facility",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"facilityName\": \"John's restaurant\",\n    \"facilityType\": \"restaurant\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/facilities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"facilities"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "238"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ee-7xw7M2Y5u7w7MXE+jo8LrRjH1BM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:09:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"22:00\"\n    },\n    \"_id\": \"656916402dd6f78716b42a2b\",\n    \"facilityName\": \"John's restaurant\",\n    \"facilityType\": \"restaurant\",\n    \"numberShifts\": 2,\n    \"numberDays\": 7,\n    \"employees\": [],\n    \"manager\": \"6569136ee9cfd342c92b5b35\",\n    \"__v\": 0\n}"
 						}
-					],
-					"cookie": [],
-					"body": "[\n    {\n        \"_id\": \"653061e95178b9f9b45767df\",\n        \"title\": \"Staff1 Availibility\",\n        \"content\": \"Hey Staff1! Are available on Wednesday? Thank you.\",\n        \"timestamp\": \"2023-10-18T22:53:29.649Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"65307f985178b9f9b45767e7\",\n        \"title\": \"Staff1 Availibility\",\n        \"content\": \"Hey Staff1! Are available on Wednesday? Thank you.\",\n        \"timestamp\": \"2023-10-19T01:00:08.877Z\",\n        \"__v\": 0\n    }\n]"
-				}
-			]
-		},
-		{
-			"name": "Get a notification by ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{base_url}}/notifications/653061e95178b9f9b45767df",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"notifications",
-						"653061e95178b9f9b45767df"
 					]
 				},
-				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-			},
-			"response": [
 				{
-					"name": "Get a notification by ID",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+					"name": "Delete user's facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
 							}
-						],
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}/notifications/653061e95178b9f9b45767df",
+							"raw": "{{base_url}}/facilities/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"notifications",
-								"653061e95178b9f9b45767df"
+								"facilities",
+								""
 							]
-						}
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "174"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"ae-2CqH2aeJh4J5Cthdy1xAIezzFWA\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:43:08 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
+							"name": "Delete user's facility",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/facilities/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"facilities",
+										""
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:08:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
 						}
-					],
-					"cookie": [],
-					"body": "{\n    \"_id\": \"653061e95178b9f9b45767df\",\n    \"title\": \"Staff1 Availibility\",\n    \"content\": \"Hey Staff1! Are available on Wednesday? Thank you.\",\n    \"timestamp\": \"2023-10-18T22:53:29.649Z\",\n    \"__v\": 0\n}"
+					]
 				}
 			]
 		},
 		{
-			"name": "Get all schedules",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"facility\" : \"653026ac162e10b0dff5c6da\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Employees",
+			"item": [
+				{
+					"name": "Get all employees",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/schedules",
-					"host": [
-						"{{base_url}}"
 					],
-					"path": [
-						"schedules"
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/employees",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all employees",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/employees",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"employees"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "218"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"da-1mFJIwQSvE82szmaLa9gGp66ifg\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:12:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"6569167c2dd6f78716b42a3b\",\n        \"name\": \"My Employee 4\",\n        \"email\": \"employee4@email.com\",\n        \"phoneNumber\": \"347-525-0159\",\n        \"skillLevel\": 5,\n        \"employeeOf\": \"6569166d2dd6f78716b42a35\",\n        \"manager\": \"6569136ee9cfd342c92b5b35\",\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get an employee by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/employees/656916fc2dd6f78716b42a4b",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employees",
+								"656916fc2dd6f78716b42a4b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get an employee by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/employees/656916fc2dd6f78716b42a4b",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"employees",
+										"656916fc2dd6f78716b42a4b"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "229"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e5-DjkPKPuIqfDeBzCVKCElSomVocw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:13:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"employee\": {\n        \"_id\": \"656916fc2dd6f78716b42a4b\",\n        \"name\": \"My Employee 9\",\n        \"email\": \"employee9@email.com\",\n        \"phoneNumber\": \"347-525-0159\",\n        \"skillLevel\": 5,\n        \"employeeOf\": \"6569166d2dd6f78716b42a35\",\n        \"manager\": \"6569136ee9cfd342c92b5b35\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Post (create) an employee",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"My Employee 9\",\n    \"email\": \"employee9@email.com\",\n    \"phoneNumber\": \"347-525-0159\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/employees",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Post (create) an employee",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"My Employee 8\",\n    \"email\": \"employee8@email.com\",\n    \"phoneNumber\": \"347-525-0159\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/employees",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"employees"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "216"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d8-4MK9UvOEc3sw5S41l1mnVe/+tog\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:11:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"My Employee 8\",\n    \"email\": \"employee8@email.com\",\n    \"phoneNumber\": \"347-525-0159\",\n    \"skillLevel\": 5,\n    \"employeeOf\": \"6569166d2dd6f78716b42a35\",\n    \"manager\": \"6569136ee9cfd342c92b5b35\",\n    \"_id\": \"6569169f2dd6f78716b42a42\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Patch (update) an employee by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"skillLevel\": 6,\n    \"phoneNumber\": \"3475250159\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/employees/656916fc2dd6f78716b42a4b",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employees",
+								"656916fc2dd6f78716b42a4b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Patch (update) an employee by ID",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"skillLevel\": 6,\n    \"phoneNumber\": \"3475250159\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/employees/656916fc2dd6f78716b42a4b",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"employees",
+										"656916fc2dd6f78716b42a4b"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "214"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d6-17TAvIynn0n1zrZMagBOzhCBtVE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:13:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"656916fc2dd6f78716b42a4b\",\n    \"name\": \"My Employee 9\",\n    \"email\": \"employee9@email.com\",\n    \"phoneNumber\": \"3475250159\",\n    \"skillLevel\": 6,\n    \"employeeOf\": \"6569166d2dd6f78716b42a35\",\n    \"manager\": \"6569136ee9cfd342c92b5b35\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete an employee by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/employees/6569169f2dd6f78716b42a42",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employees",
+								"6569169f2dd6f78716b42a42"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete an employee by ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/employees/6569169f2dd6f78716b42a42",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"employees",
+										"6569169f2dd6f78716b42a42"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:11:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
 					]
 				}
-			},
-			"response": [
+			]
+		},
+		{
+			"name": "Schedules",
+			"item": [
 				{
 					"name": "Get all schedules",
-					"originalRequest": {
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -444,304 +1342,169 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "1505"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"5e1-N5eyEQ6ru/0sQLjj+JgMxl3AO+E\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:43:12 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
+							"name": "Get all schedules",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"facility\" : \"653026ac162e10b0dff5c6da\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/schedules",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"schedules"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "831"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"33f-tFKt61PCQ3QQNZKamN332dM9ja8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:15:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"656917412dd6f78716b42a54\",\n        \"facilityId\": \"6569166d2dd6f78716b42a35\",\n        \"dateGenerated\": \"2023-11-30T23:14:09.245Z\",\n        \"shifts\": [\n            {\n                \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n                \"start\": \"11:00\",\n                \"end\": \"16:30\",\n                \"days\": [\n                    \"Mo\",\n                    \"Tu\",\n                    \"We\",\n                    \"Th\",\n                    \"Fr\"\n                ],\n                \"_id\": \"656917412dd6f78716b42a56\"\n            },\n            {\n                \"employeeId\": \"656916fc2dd6f78716b42a4b\",\n                \"start\": \"11:00\",\n                \"end\": \"16:30\",\n                \"days\": [\n                    \"Mo\",\n                    \"Tu\",\n                    \"We\",\n                    \"Th\",\n                    \"Fr\"\n                ],\n                \"_id\": \"656917412dd6f78716b42a59\"\n            }\n        ],\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6569179e2dd6f78716b42a5d\",\n        \"facilityId\": \"6569166d2dd6f78716b42a35\",\n        \"dateGenerated\": \"2023-11-30T23:15:42.442Z\",\n        \"shifts\": [\n            {\n                \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n                \"start\": \"16:30\",\n                \"end\": \"22:00\",\n                \"days\": [\n                    \"Mo\",\n                    \"Tu\",\n                    \"We\",\n                    \"Th\",\n                    \"Fr\"\n                ],\n                \"_id\": \"6569179e2dd6f78716b42a5f\"\n            },\n            {\n                \"employeeId\": \"656916fc2dd6f78716b42a4b\",\n                \"start\": \"16:30\",\n                \"end\": \"22:00\",\n                \"days\": [\n                    \"Mo\",\n                    \"Tu\",\n                    \"We\",\n                    \"Th\",\n                    \"Fr\"\n                ],\n                \"_id\": \"6569179e2dd6f78716b42a62\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
 						}
-					],
-					"cookie": [],
-					"body": "[\n    {\n        \"shifts\": {\n            \"start\": \"8:00:00 AM\",\n            \"end\": \"2:00:00 PM\"\n        },\n        \"target_hours\": 6,\n        \"_id\": \"6530587566b16f8bac3db28f\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"dateGenerated\": \"2023-10-18T22:13:09.905Z\",\n        \"__v\": 0\n    },\n    {\n        \"shifts\": {\n            \"start\": \"8:00:00 AM\",\n            \"end\": \"2:00:00 PM\"\n        },\n        \"_id\": \"653086c78e85b3c27e2a4b10\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"target_hours\": 6,\n        \"dateGenerated\": \"2023-10-19T01:30:47.729Z\",\n        \"__v\": 0\n    },\n    {\n        \"shifts\": {\n            \"start\": \"8:00:00 AM\",\n            \"end\": \"2:00:00 PM\"\n        },\n        \"_id\": \"65308a1b9d22f9eddb46dfc5\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"target_hours\": 6,\n        \"dateGenerated\": \"2023-10-19T01:44:59.986Z\",\n        \"__v\": 0\n    },\n    {\n        \"shifts\": {\n            \"start\": \"8:00:00 AM\",\n            \"end\": \"2:00:00 PM\"\n        },\n        \"_id\": \"65308b607b4a70f8787b8274\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"target_hours\": 6,\n        \"dateGenerated\": \"2023-10-19T01:50:24.497Z\",\n        \"__v\": 0\n    },\n    {\n        \"shifts\": {\n            \"start\": \"11:00:02 AM\",\n            \"end\": \"5:00:02 PM\"\n        },\n        \"_id\": \"65318cb6e2e3c852d25c65a9\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"target_hours\": 6,\n        \"dateGenerated\": \"2023-10-19T20:08:22.858Z\",\n        \"__v\": 0\n    },\n    {\n        \"shifts\": {\n            \"start\": \"11:00:00 AM\",\n            \"end\": \"5:00:00 PM\"\n        },\n        \"_id\": \"65319c8014f8ea734dd1c0b5\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"target_hours\": 6,\n        \"dateGenerated\": \"2023-10-19T21:15:44.804Z\",\n        \"__v\": 0\n    },\n    {\n        \"shifts\": {\n            \"start\": \"11:00:00 AM\",\n            \"end\": \"5:00:00 PM\"\n        },\n        \"_id\": \"65319ddd14f8ea734dd1c0bf\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"target_hours\": 6,\n        \"dateGenerated\": \"2023-10-19T21:21:33.213Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6531a17d99cad53b9800d222\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"target_hours\": 6,\n        \"dateGenerated\": \"2023-10-19T21:37:01.974Z\",\n        \"__v\": 0\n    }\n]"
-				}
-			]
-		},
-		{
-			"name": "Get a schedule by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/schedules/{{schedule_id}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"schedules",
-						"{{schedule_id}}"
 					]
-				}
-			},
-			"response": [
+				},
 				{
 					"name": "Get a schedule by ID",
-					"originalRequest": {
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/schedules/{{schedule_id}}",
+							"raw": "{{base_url}}/schedules/656917412dd6f78716b42a54",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"schedules",
-								"{{schedule_id}}"
+								"656917412dd6f78716b42a54"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "239"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"ef-d/91jh8CZVxQkkr1GZjRHX7WFwY\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:47:38 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"sid\": \"6530587566b16f8bac3db28f\",\n    \"schedule\": {\n        \"shifts\": {\n            \"start\": \"8:00:00 AM\",\n            \"end\": \"2:00:00 PM\"\n        },\n        \"target_hours\": 6,\n        \"_id\": \"6530587566b16f8bac3db28f\",\n        \"facilityId\": \"653026ac162e10b0dff5c6da\",\n        \"dateGenerated\": \"2023-10-18T22:13:09.905Z\",\n        \"__v\": 0\n    }\n}"
-				}
-			]
-		},
-		{
-			"name": "Get all staff",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/staffs",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"staffs"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Get all staff",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/staffs",
-							"host": [
-								"{{base_url}}"
+							"name": "Get a schedule by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/schedules/656917412dd6f78716b42a54",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"schedules",
+										"656917412dd6f78716b42a54"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "288"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"120-vJ8IiWOVjMisv2ihK/J6jUZD4D4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:16:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
 							],
-							"path": [
-								"staffs"
-							]
+							"cookie": [],
+							"body": "{\n    \"schedule\": {\n        \"_id\": \"656917412dd6f78716b42a54\",\n        \"facilityId\": \"6569166d2dd6f78716b42a35\",\n        \"dateGenerated\": \"2023-11-30T23:14:09.245Z\",\n        \"shifts\": [\n            {\n                \"employeeId\": \"6567b293fa1c37d7f88d71fd\",\n                \"start\": \"12:00\",\n                \"end\": \"14:00\",\n                \"days\": [\n                    \"Mo\",\n                    \"Tu\",\n                    \"We\",\n                    \"Th\",\n                    \"Fr\"\n                ],\n                \"_id\": \"656917cb2dd6f78716b42a78\"\n            }\n        ],\n        \"__v\": 0\n    }\n}"
 						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "657"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"291-PAJq9I0i1yy37cPophzlrqxu6Ds\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:43:20 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "[\n    {\n        \"_id\": \"6530417712a0fa8a71de867c\",\n        \"staffID\": \"123456\",\n        \"location\": \"tokyo\",\n        \"skill\": 2,\n        \"phoneNumber\": \"1234567890\",\n        \"__v\": 0,\n        \"name\": \"hello\"\n    },\n    {\n        \"_id\": \"65304603c332fad40ff7c1f0\",\n        \"name\": \"serdar\",\n        \"assignedFacility\": \"653045f4c332fad40ff7c1ee\",\n        \"location\": \"my house\",\n        \"skill\": 10,\n        \"phoneNumber\": \"1234567890\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"65304669c332fad40ff7c1f4\",\n        \"name\": \"serdar\",\n        \"location\": \"my house\",\n        \"skill\": 10,\n        \"phoneNumber\": \"1234567890\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"65306136e4a0ba751a4ca9cc\",\n        \"name\": \"serdar\",\n        \"location\": \"manhattan\",\n        \"skill\": 10,\n        \"phoneNumber\": \"1234567890\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6531a19e99cad53b9800d224\",\n        \"name\": \"serdar\",\n        \"location\": \"my house\",\n        \"skill\": 10,\n        \"phoneNumber\": \"1234567890\",\n        \"__v\": 0\n    }\n]"
-				}
-			]
-		},
-		{
-			"name": "Get a staff by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/staffs/{{staff_id}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"staffs",
-						"{{staff_id}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Get a staff by ID",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/staffs/{{staff_id}}",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"staffs",
-								"{{staff_id}}"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "132"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"84-icWbHl3sRbydTyLvEoA1R4Rb/BQ\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:43:28 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"_id\": \"6530417712a0fa8a71de867c\",\n    \"staffID\": \"123456\",\n    \"location\": \"tokyo\",\n    \"skill\": 2,\n    \"phoneNumber\": \"1234567890\",\n    \"__v\": 0,\n    \"name\": \"hello\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Post (create) a facility",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"facilityName\": \"Facility 22\",\n    \"facilityType\": \"retail\",\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"23:00\"\n    },\n    \"numberEmployees\": \"5\",\n    \"numberShifts\": \"1\",\n    \"numberDays\": \"5\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/facilities/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"facilities",
-						""
 					]
 				},
-				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-			},
-			"response": [
 				{
-					"name": "Post (create) a facility",
-					"originalRequest": {
+					"name": "Post (create) a schedule",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"facilityName\": \"Facility 21\",\n    \"facilityType\": \"retail\",\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"23:00\"\n    },\n    \"numberEmployees\": \"5\",\n    \"numberShifts\": \"1\",\n    \"numberDays\": \"5\"\n}",
+							"raw": "{\n    \"facility\": \"6569166d2dd6f78716b42a35\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -749,102 +1512,454 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/facilities/",
+							"raw": "{{base_url}}/schedules",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"facilities",
-								""
+								"schedules"
 							]
 						}
 					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "202"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"ca-HXuBQ00yleXgsLp86gYYsAAH3dQ\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:48:02 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
+							"name": "Post (create) a schedule",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"facility\": \"6569166d2dd6f78716b42a35\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/schedules",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"schedules"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "414"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19e-KO39KcM4g1JLXhXxIQEZl92wqYA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:14:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"facilityId\": \"6569166d2dd6f78716b42a35\",\n    \"_id\": \"656917412dd6f78716b42a54\",\n    \"dateGenerated\": \"2023-11-30T23:14:09.245Z\",\n    \"shifts\": [\n        {\n            \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n            \"start\": \"11:00\",\n            \"end\": \"16:30\",\n            \"days\": [\n                \"Mo\",\n                \"Tu\",\n                \"We\",\n                \"Th\",\n                \"Fr\"\n            ],\n            \"_id\": \"656917412dd6f78716b42a56\"\n        },\n        {\n            \"employeeId\": \"656916fc2dd6f78716b42a4b\",\n            \"start\": \"11:00\",\n            \"end\": \"16:30\",\n            \"days\": [\n                \"Mo\",\n                \"Tu\",\n                \"We\",\n                \"Th\",\n                \"Fr\"\n            ],\n            \"_id\": \"656917412dd6f78716b42a59\"\n        }\n    ],\n    \"__v\": 0\n}"
 						}
-					],
-					"cookie": [],
-					"body": "{\n    \"facilityName\": \"Facility 21\",\n    \"facilityType\": \"retail\",\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"23:00\"\n    },\n    \"numberEmployees\": \"5\",\n    \"numberShifts\": \"1\",\n    \"numberDays\": \"5\",\n    \"_id\": \"6531a41299cad53b9800d23b\",\n    \"__v\": 0\n}"
+					]
+				},
+				{
+					"name": "Patch (update) a schedule",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"shifts\": [\n        {\n            \"employeeId\": \"6567b293fa1c37d7f88d71fd\",\n            \"start\": \"12:00\",\n            \"end\": \"14:00\",\n            \"days\": [\"Mo\", \"Tu\", \"We\", \"Th\", \"Fr\"]\n        }\n    ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/schedules/656917412dd6f78716b42a54",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"schedules",
+								"656917412dd6f78716b42a54"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Generate shift hours for one schedule",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/schedules/65319c8014f8ea734dd1c0b5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"schedules",
+										"65319c8014f8ea734dd1c0b5"
+									]
+								}
+							},
+							"status": "Method Not Allowed",
+							"code": 405,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-A9aOlIy4EXSb2uI/9FhqtZz57tM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 21:21:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error: Shifts are already scheduled\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete a schedule by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/schedules/656917412dd6f78716b42a54",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"schedules",
+								"656917412dd6f78716b42a54"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete a schedule by ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/schedules/656917412dd6f78716b42a54",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"schedules",
+										"656917412dd6f78716b42a54"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:17:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "Post (create) a notification",
-			"event": [
+			"name": "Notifications",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"Staff1 Availibility\",\n    \"content\": \"Hey Staff1! Are available on Wednesday? Thank you.\"\n    \n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Get all notifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/notifications",
-					"host": [
-						"{{base_url}}"
 					],
-					"path": [
-						"notifications"
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/notifications",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": [
+						{
+							"name": "Get all notifications",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/notifications",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"notifications"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "660"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"294-oJ5O+dZPkKWAOB7AIY6jafTturg\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:20:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"6569183b2dd6f78716b42a84\",\n        \"employeeId\": \"655eb3cdc0f1158d9b6eca79\",\n        \"message\": \"Hey Serdar, your shift is tomorrow from 8am to 5pm. Don't be late!\",\n        \"manager\": \"6569136ee9cfd342c92b5b35\",\n        \"timestamp\": \"2023-11-30T23:18:19.068Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"656918a62dd6f78716b42a89\",\n        \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n        \"message\": \"Hey Serdar, your shift is tomorrow from 8am to 5pm. Don't be late!\",\n        \"manager\": \"6569136ee9cfd342c92b5b35\",\n        \"timestamp\": \"2023-11-30T23:20:06.632Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"656918c12dd6f78716b42a8c\",\n        \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n        \"message\": \"Hey Serdar!\",\n        \"manager\": \"6569136ee9cfd342c92b5b35\",\n        \"timestamp\": \"2023-11-30T23:20:33.798Z\",\n        \"__v\": 0\n    }\n]"
+						}
 					]
 				},
-				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-			},
-			"response": [
+				{
+					"name": "Get a notification by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/notifications/6569183b2dd6f78716b42a84",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications",
+								"6569183b2dd6f78716b42a84"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": [
+						{
+							"name": "Get a notification by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/notifications/656918c12dd6f78716b42a8c",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"notifications",
+										"656918c12dd6f78716b42a8c"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "199"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c7-R7Oc9tU5upJNVkOHhks7WW1h0cA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:21:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"notification\": {\n        \"_id\": \"656918c12dd6f78716b42a8c\",\n        \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n        \"message\": \"Hey Serdar!\",\n        \"manager\": \"6569136ee9cfd342c92b5b35\",\n        \"timestamp\": \"2023-11-30T23:20:33.798Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
 				{
 					"name": "Post (create) a notification",
-					"originalRequest": {
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Staff1 Availibility\",\n    \"content\": \"Hey Staff1! Are available on Wednesday? Thank you.\"\n    \n}",
+							"raw": "{\n    \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n    \"message\": \"Hey Serdar!\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -859,278 +1974,98 @@
 							"path": [
 								"notifications"
 							]
-						}
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "174"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"ae-2aOa1nyeknOxlY+oTdV7wJwZkh4\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:48:21 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"title\": \"Staff1 Availibility\",\n    \"content\": \"Hey Staff1! Are available on Wednesday? Thank you.\",\n    \"_id\": \"6531a42599cad53b9800d23d\",\n    \"timestamp\": \"2023-10-19T21:48:21.097Z\",\n    \"__v\": 0\n}"
-				}
-			]
-		},
-		{
-			"name": "Post (create) a schedule",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"facility\": \"653026ac162e10b0dff5c6da\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/schedules",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"schedules"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Post (create) a schedule",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"facility\": \"653026ac162e10b0dff5c6da\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "Post (create) a notification",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n    \"message\": \"Hey Serdar, your shift is tomorrow from 8am to 5pm. Don't be late!\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/notifications",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"notifications"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/schedules",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"schedules"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "142"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"8e-6DtrdV1wWc8jPIqdU/K/GSy3BAI\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:48:37 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"facilityId\": \"653026ac162e10b0dff5c6da\",\n    \"target_hours\": 6,\n    \"_id\": \"6531a43599cad53b9800d23f\",\n    \"dateGenerated\": \"2023-10-19T21:48:37.285Z\",\n    \"__v\": 0\n}"
-				}
-			]
-		},
-		{
-			"name": "Post (create) a staff",
-			"protocolProfileBehavior": {
-				"disabledSystemHeaders": {}
-			},
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"serdar\",\n    \"location\": \"my house\",\n    \"skill\": \"10\",\n    \"phoneNumber\": \"1234567890\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/staffs/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"staffs",
-						""
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Post (create) a staff",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"serdar\",\n    \"location\": \"my house\",\n    \"skill\": \"10\",\n    \"phoneNumber\": \"1234567890\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "237"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ed-DsrAWBcYTyWdPaQGebx6hGlzezk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:20:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
 								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/staffs/",
-							"host": [
-								"{{base_url}}"
 							],
-							"path": [
-								"staffs",
-								""
-							]
+							"cookie": [],
+							"body": "{\n    \"employeeId\": \"6569167c2dd6f78716b42a3b\",\n    \"message\": \"Hey Serdar, your shift is tomorrow from 8am to 5pm. Don't be late!\",\n    \"manager\": \"6569136ee9cfd342c92b5b35\",\n    \"_id\": \"656918a62dd6f78716b42a89\",\n    \"timestamp\": \"2023-11-30T23:20:06.632Z\",\n    \"__v\": 0\n}"
 						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "118"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"76-8eiQyMVkHcpORFkmKN8nKTAgGGM\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:48:54 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"name\": \"serdar\",\n    \"location\": \"my house\",\n    \"skill\": 10,\n    \"phoneNumber\": \"1234567890\",\n    \"_id\": \"6531a44699cad53b9800d241\",\n    \"__v\": 0\n}"
-				}
-			]
-		},
-		{
-			"name": "Patch (update) a notification",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful PUT request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"content\": \"Hey Staff 1! Thank you for the response!\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/notifications/65305b475178b9f9b45767c2",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"notifications",
-						"65305b475178b9f9b45767c2"
 					]
 				},
-				"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
-			},
-			"response": [
 				{
 					"name": "Patch (update) a notification",
-					"originalRequest": {
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": \"Hey Staff 1! Thank you for the response!\"\n}",
+							"raw": "{\n    \"message\": \"Hey Staff 1! Thank you for the response!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1138,535 +2073,102 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/notifications/65305b475178b9f9b45767c2",
+							"raw": "{{base_url}}/notifications/6569183b2dd6f78716b42a84",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"notifications",
-								"65305b475178b9f9b45767c2"
+								"6569183b2dd6f78716b42a84"
 							]
-						}
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
 					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "42"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"2a-6TcHWxhmfGFxcbtJmTiBRRT62pg\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:49:03 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"Cannot find the notification\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Patch (update) a facility",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful PUT request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"facilityType\": \"other\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/facilities/{{facility_id}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"facilities",
-						"{{facility_id}}"
-					]
-				},
-				"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
-			},
-			"response": [
-				{
-					"name": "Patch (update) a facility",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"facilityType\": \"other\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "Patch (update) a notification",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message\": \"Hey Staff 1! Thank you for the response!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/notifications/6569183b2dd6f78716b42a84",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"notifications",
+										"6569183b2dd6f78716b42a84"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/facilities/{{facility_id}}",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"facilities",
-								"{{facility_id}}"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "200"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"c8-PxIQxGUxPgPQqNky7NpDqTRfpa4\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:49:11 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"operatingHours\": {\n        \"start\": \"11:00\",\n        \"end\": \"23:00\"\n    },\n    \"_id\": \"653026ac162e10b0dff5c6da\",\n    \"facilityName\": \"Facility 1\",\n    \"facilityType\": \"other\",\n    \"numberEmployees\": \"5\",\n    \"numberShifts\": \"1\",\n    \"numberDays\": \"5\",\n    \"__v\": 0\n}"
-				}
-			]
-		},
-		{
-			"name": "Patch (update) a schedule",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/schedules/65319ddd14f8ea734dd1c0bf",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"schedules",
-						"65319ddd14f8ea734dd1c0bf"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Generate shift hours for one schedule",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/schedules/65319c8014f8ea734dd1c0b5",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"schedules",
-								"65319c8014f8ea734dd1c0b5"
-							]
-						}
-					},
-					"status": "Method Not Allowed",
-					"code": 405,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "49"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"31-A9aOlIy4EXSb2uI/9FhqtZz57tM\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:21:48 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"Error: Shifts are already scheduled\"\n}"
-				},
-				{
-					"name": "Error message example",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/schedules/65319ddd14f8ea734dd1c0bf",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"schedules",
-								"65319ddd14f8ea734dd1c0bf"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "42"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"2a-up1lyPqLl7XvtjP7I4FV4PZWU10\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:23:20 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"status\": \"Success: new shifts scheduled\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Patch (update) a staff by ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"hello\",\n    \"location\": \"tokyo\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/staffs/{{staff_id}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"staffs",
-						"{{staff_id}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Patch (update) a staff by ID",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"hello\",\n    \"location\": \"tokyo\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "211"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d3-iVmvdZiKifsq44fqZdSRCqJA1xY\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:23:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
 								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/staffs/{{staff_id}}",
-							"host": [
-								"{{base_url}}"
 							],
-							"path": [
-								"staffs",
-								"{{staff_id}}"
-							]
+							"cookie": [],
+							"body": "{\n    \"_id\": \"6569183b2dd6f78716b42a84\",\n    \"employeeId\": \"655eb3cdc0f1158d9b6eca79\",\n    \"message\": \"Hey Staff 1! Thank you for the response!\",\n    \"manager\": \"6569136ee9cfd342c92b5b35\",\n    \"timestamp\": \"2023-11-30T23:18:19.068Z\",\n    \"__v\": 0\n}"
 						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "132"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"84-icWbHl3sRbydTyLvEoA1R4Rb/BQ\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:50:48 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"_id\": \"6530417712a0fa8a71de867c\",\n    \"staffID\": \"123456\",\n    \"location\": \"tokyo\",\n    \"skill\": 2,\n    \"phoneNumber\": \"1234567890\",\n    \"__v\": 0,\n    \"name\": \"hello\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Delete a facility by ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful DELETE request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/facilities/65305f18eb111829d59f92d6",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"facilities",
-						"65305f18eb111829d59f92d6"
 					]
 				},
-				"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
-			},
-			"response": [
-				{
-					"name": "Delete a facility by ID",
-					"originalRequest": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/facilities/65305f18eb111829d59f92d6",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"facilities",
-								"65305f18eb111829d59f92d6"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "30"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"1e-Ww+WFdLQQr+RH8kvThIJmBu/rhE\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:51:17 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"Deleted facility\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Delete a notification by ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful DELETE request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base_url}}/notifications/653060275178b9f9b45767d8",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"notifications",
-						"653060275178b9f9b45767d8"
-					]
-				},
-				"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
-			},
-			"response": [
 				{
 					"name": "Delete a notification by ID",
-					"originalRequest": {
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -1679,201 +2181,86 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/notifications/653060275178b9f9b45767d8",
+							"raw": "{{base_url}}/notifications/{{notification_id}}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"notifications",
-								"653060275178b9f9b45767d8"
+								"{{notification_id}}"
 							]
-						}
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
 					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "42"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"2a-6TcHWxhmfGFxcbtJmTiBRRT62pg\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:51:31 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"Cannot find the notification\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Delete a schedule by ID",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/schedules/65308a1b9d22f9eddb46dfc5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"schedules",
-						"65308a1b9d22f9eddb46dfc5"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Delete a schedule by ID",
-					"originalRequest": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/schedules/65308a1b9d22f9eddb46dfc5",
-							"protocol": "http",
-							"host": [
-								"localhost"
+							"name": "Delete a notification by ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/notifications/656918c12dd6f78716b42a8c",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"notifications",
+										"656918c12dd6f78716b42a8c"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Nov 2023 23:22:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
 							],
-							"port": "3000",
-							"path": [
-								"schedules",
-								"65308a1b9d22f9eddb46dfc5"
-							]
+							"cookie": [],
+							"body": null
 						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "30"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"1e-oCwWAVadlaoU6Sj+vkru1SI7sk4\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:51:56 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"Deleted schedule\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Delete a staff by ID",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/staffs/65305bf2e4a0ba751a4ca9a5",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"staffs",
-						"65305bf2e4a0ba751a4ca9a5"
 					]
-				}
-			},
-			"response": [
-				{
-					"name": "Delete a staff by ID",
-					"originalRequest": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/staffs/65305bf2e4a0ba751a4ca9a5",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"staffs",
-								"65305bf2e4a0ba751a4ca9a5"
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "35"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"23-VD9LjfpEQgE3nltxqz6I/tQiQOU\""
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 19 Oct 2023 21:52:15 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"Cannot find the staff\"\n}"
 				}
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY5MTM2ZWU5Y2ZkMzQyYzkyYjViMzUiLCJpYXQiOjE3MDEzODUwODksImV4cCI6MTcwMTQ3MTQ4OX0.XJoG2QM8MIcPf1gPrtV-0Jy1q9awz3ILRwsmzZdqZlc",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -1897,27 +2284,27 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:3000",
+			"value": "http://localhost:8080",
 			"type": "string"
 		},
 		{
 			"key": "facility_id",
-			"value": "653026ac162e10b0dff5c6da",
+			"value": "653ab3ec116f8d279b80f6f2",
 			"type": "string"
 		},
 		{
 			"key": "schedule_id",
-			"value": "6530587566b16f8bac3db28f",
+			"value": "65319ddd14f8ea734dd1c0bf",
 			"type": "string"
 		},
 		{
 			"key": "notification_id",
-			"value": "65305b475178b9f9b45767c2",
+			"value": "6539ec52e91d545981a4e3ce",
 			"type": "string"
 		},
 		{
-			"key": "staff_id",
-			"value": "6530417712a0fa8a71de867c",
+			"key": "employee_id",
+			"value": "6531e058082bcc55db429a6b",
 			"type": "string"
 		}
 	]
