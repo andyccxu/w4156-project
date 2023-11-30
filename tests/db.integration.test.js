@@ -66,9 +66,15 @@ test('should not save a user with duplicate email address', async () => {
   expect(savedUser).toBeUndefined();
 });
 
-test('should contain a user' +
-'with username John Doe; test persistent database storage',
-async () => {
+test('should have persistent data storage', async () => {
+  const user = new User({
+    name: 'John',
+    email: 'john2@example.com',
+    password: '12345',
+  });
+
+  await user.save();
+
   await mongoose.connection.close();
 
   // sleep 1 second
@@ -78,10 +84,10 @@ async () => {
   const url = process.env.MONGO_URI_TEST;
   await mongoose.connect(url);
 
-  const user = await User.findOne({name: 'John Doe'}).select('+password');
-  expect(user.name).toBe('John Doe');
-  expect(user.email).toBe('john@example.com');
-  expect(user.password).toBe('12345');
+  const savedUser = await User.findOne({name: 'John'}).select('+password');
+  expect(savedUser.name).toBe('John');
+  expect(savedUser.email).toBe('john2@example.com');
+  expect(savedUser.password).toBe('12345');
 });
 
 
