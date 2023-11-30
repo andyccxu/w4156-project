@@ -90,7 +90,7 @@ async function patchController(req, res) {
 async function deleteController(req, res) {
   try {
     await res.notification.deleteOne();
-    res.status(204);
+    return res.status(204).end();
   } catch (err) {
     res.status(500).json({message: err.message});
   }
