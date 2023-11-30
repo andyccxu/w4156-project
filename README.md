@@ -146,7 +146,7 @@ Before using any other endpoint, user must create an account by signing up, then
 - **Description:**
     Delete user's facility.
 - **Response Codes:**
-  - `200: Success`
+  - `204: Success`
   - `404: No facility managed by this user`
 
 ### Employees
@@ -207,7 +207,7 @@ Before using any other endpoint, user must create an account by signing up, then
 - **Request Parameters:**
   - `id: string`
 - **Response Codes:**
-  - `200: Success`
+  - `204: Success`
   - `404: Cannot find the employee`
 
 ### Schedules
@@ -248,8 +248,7 @@ Before using any other endpoint, user must create an account by signing up, then
   - `id: string`
 - **Response Codes:**
   - `200: Success`
-  - `404: Schedule Not Found`
-  - `405: Shifts Already Scheduled`
+  - `400: Invalid input`
   - `500: Internal Server Error`
 
 #### `DELETE /schedules/:id`
@@ -259,7 +258,7 @@ Before using any other endpoint, user must create an account by signing up, then
 - **Request Parameters:**
   - `id: string`
 - **Response Codes:**
-  - `200: Success`
+  - `204: Success`
   - `404: Schedule Not Found`
   - `500: Internal Server Error`
 
@@ -315,7 +314,7 @@ Before using any other endpoint, user must create an account by signing up, then
 - **Request Parameters:**
   - `id: string`
 - **Response Codes:**
-  - `200: Success`
+  - `204: Success`
   - `404: Notification Not Found`
   - `500: Internal Server Error`
   
