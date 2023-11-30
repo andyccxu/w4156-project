@@ -369,7 +369,7 @@ describe('Controller functions for /schedules', () => {
       });
     });
 
-    it('should return a message when schedule deleted', async () => {
+    it('should return status code 204 when schedule deleted', async () => {
       res = {
         schedule: {
           deleteOne: jest.fn(),
@@ -382,10 +382,7 @@ describe('Controller functions for /schedules', () => {
 
       await deleteController(req, res);
 
-      expect(res.status).toBeCalledWith(200);
-      expect(res.json).toBeCalledWith({
-        message: 'Deleted schedule',
-      });
+      expect(res.status).toBeCalledWith(204);
     });
   });
 });

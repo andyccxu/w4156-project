@@ -102,7 +102,7 @@ describe('Facility Controller', () => {
 
     it('should delete the facility', async () => {
       await deleteController(req, res);
-      expect(res.statusCode).toBe(200);
+      expect(res.statusCode).toBe(204);
     });
 
     it('should return 404 when facility not found', async () => {

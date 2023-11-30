@@ -426,10 +426,7 @@ describe('Controller functions for /employees', () => {
           mockFacilityId,
           {$pull: {employees: mockEmployeeId}},
       );
-      expect(res.statusCode).toBe(200);
-      expect(res._getJSONData()).toStrictEqual({
-        message: 'Deleted employee',
-      });
+      expect(res.statusCode).toBe(204);
     });
 
     it('should return 500 on database error during deletion', async () => {

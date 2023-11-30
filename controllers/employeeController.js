@@ -114,7 +114,7 @@ async function deleteController(req, res) {
       $pull: {employees: req.params.id},
     });
 
-    res.json({message: 'Deleted employee'});
+    res.status(204);
   } catch (err) {
     res.status(500).json({message: err.message});
   }

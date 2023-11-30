@@ -197,10 +197,7 @@ describe('Controller functions for /notifications', () => {
 
       await deleteController(req, res);
 
-      expect(res.statusCode).toBe(200);
-      expect(res._getJSONData()).toStrictEqual({
-        message: 'Deleted notification!',
-      });
+      expect(res.statusCode).toBe(204);
     });
 
     it('should return 500 on database error during deletion', async () => {
