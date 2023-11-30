@@ -1,26 +1,40 @@
+### 
+POST http://localhost:8080/auth/login 
+Content-Type: application/json
+
+{
+    "email": "cx2295@columbia.edu",
+    "password": "12345"
+}
+
 
 ### Get all schedules
 GET http://localhost:8080/schedules/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTk5MTEsImV4cCI6MTcwMTM4NjMxMX0.DNdcd_GuMqDsGSJrCQGtKKaRuiAScMI0l20Q1zEYi1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEzNTY1MTEsImV4cCI6MTcwMTQ0MjkxMX0.-QvTvXOsiwDIpNtlREBumMZ43F30GPriJZeVbr8M4qw
 
 ### Create a schedule
 POST http://localhost:8080/schedules/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTk5MTEsImV4cCI6MTcwMTM4NjMxMX0.DNdcd_GuMqDsGSJrCQGtKKaRuiAScMI0l20Q1zEYi1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEzNTY1MTEsImV4cCI6MTcwMTQ0MjkxMX0.-QvTvXOsiwDIpNtlREBumMZ43F30GPriJZeVbr8M4qw
 
 {
     "facility": "6567b22bfa1c37d7f88d71f5"
 }
 
+### Get one
+GET http://localhost:8080/schedules/6568a6c28407f9d590408902
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEzNTY1MTEsImV4cCI6MTcwMTQ0MjkxMX0.-QvTvXOsiwDIpNtlREBumMZ43F30GPriJZeVbr8M4qw
+
+
 ### Update a schedule
-PATCH http://localhost:8080/schedules/6549bbcdfc390150a0c2d72d
+PATCH http://localhost:8080/schedules/6568a6c28407f9d590408902
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkyNDY2ODUsImV4cCI6MTY5OTMzMzA4NX0.uuEE346sv015hRE1SNhlgNXjsenACRVqubHwL0y6nLQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEzNTY1MTEsImV4cCI6MTcwMTQ0MjkxMX0.-QvTvXOsiwDIpNtlREBumMZ43F30GPriJZeVbr8M4qw
 
 {
     "shifts": [
         {
-            "staffId": "65304603c332fad40ff7c1f0",
+            "employeeId": "6567b293fa1c37d7f88d71fd",
             "start": "12:00",
             "end": "14:00",
             "days": ["Mo", "Tu", "We", "Th", "Fr"]
@@ -30,5 +44,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN
 
 
 ### Delete a schedule
-DELETE http://localhost:8080/schedules/6549bd900a668302cfec8077
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkyNDY2ODUsImV4cCI6MTY5OTMzMzA4NX0.uuEE346sv015hRE1SNhlgNXjsenACRVqubHwL0y6nLQ
+DELETE http://localhost:8080/schedules/6567c747290388f24cf81db8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEzNTY1MTEsImV4cCI6MTcwMTQ0MjkxMX0.-QvTvXOsiwDIpNtlREBumMZ43F30GPriJZeVbr8M4qw
+

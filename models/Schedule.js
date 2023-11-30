@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const scheduleEntrySchema = new mongoose.Schema({
   employeeId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Staff',
+    ref: 'Employee',
     required: true,
   },
   start: {

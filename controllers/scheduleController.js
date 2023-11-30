@@ -4,6 +4,8 @@ const scheduling = require('../services/scheduling');
 const {Schedule, ScheduleEntry} = require('../models/Schedule');
 const Employee = require('../models/Employee');
 const Facility = require('../models/Facility');
+const User = require('../models/User');
+
 
 /**
  * Controller for route GET /schedules
@@ -13,7 +15,16 @@ const Facility = require('../models/Facility');
  */
 async function getAllController(req, res) {
   try {
-    const schedules = await Schedule.find();
+    // get the facility registered by user
+    const user = await User.findById(req.user._id);
+    if (!user.managedFacility) {
+      return res.status(404).json({
+        message: 'No facility managed by this user'});
+    }
+
+    const facilityId = user.managedFacility;
+
+    const schedules = await Schedule.find({facilityId: facilityId});
     res.json(schedules);
   } catch (err) {
     res.status(500).json({message: err.message});
@@ -26,8 +37,9 @@ async function getAllController(req, res) {
  * @param {*} req Express.js request object
  * @param {*} res Express.js response object
  */
-function getOneController(req, res) {
-  res.json({
+async function getOneController(req, res) {
+  // return 200 ok
+  res.status(200).json({
     schedule: res.schedule,
   });
 }
@@ -96,7 +108,7 @@ async function patchController(req, res) {
   for (const shift of req.body.shifts) {
     // validate the input
     const instance = new ScheduleEntry({
-      staffId: shift.staffId,
+      employeeId: shift.employeeId,
       start: shift.start,
       end: shift.end,
       days: shift.days,
@@ -164,7 +176,6 @@ async function patchController(req, res) {
 
   res.status(200).json({
     message: 'Success: shifts schedule updated',
-    schedule: res.schedule,
   });
 }
 

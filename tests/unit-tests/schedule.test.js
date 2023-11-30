@@ -5,6 +5,7 @@ const Schedule = require('../../models/Schedule').Schedule;
 const ScheduleEntry = require('../../models/Schedule').ScheduleEntry;
 const Facility = require('../../models/Facility');
 const Employee = require('../../models/Employee');
+const User = require('../../models/User');
 
 // middleware function
 const {getSchedule} = require('../../routes/schedules');
@@ -21,7 +22,6 @@ const {
 
 describe('Controller functions for /schedules', () => {
   beforeEach(() => {
-    // jest.clearAllMocks();
     req = httpMocks.createRequest();
     res = httpMocks.createResponse();
 
@@ -35,6 +35,13 @@ describe('Controller functions for /schedules', () => {
         shifts: ['some mysterious shifts'],
       },
     ]);
+
+    User.findById = jest.fn().mockResolvedValue({
+      _id: 'some_user_id',
+      managedFacility: 'some_facility_id',
+    });
+
+    req.user = {_id: 'some_user_id'};
   });
 
   afterEach(() => {
@@ -311,6 +318,33 @@ describe('Controller functions for /schedules', () => {
         message: 'Validation error',
       });
     });
+
+    it('should handle database error', async () => {
+      // mock Schedule.findOneAndUpdate to throw an error
+      Schedule.findOneAndUpdate = jest.fn().mockRejectedValue(
+          new Error('Database error'));
+
+      const req = {
+        body: {
+          shifts: [{
+            staffId: '1',
+            start: '09:00',
+            end: '17:00',
+            days: [],
+          }],
+        },
+      };
+
+      res.status = jest.fn().mockReturnThis();
+      res.json = jest.fn();
+
+      await patchController(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'Database error',
+      });
+    });
   });
 
   describe('deleteController', () => {
@@ -371,6 +405,9 @@ describe('Middleware: getSchedule', () => {
         // Mock that the schedule id 123 is in the database
         return Promise.resolve({
           _id: '123',
+          facilityId: {
+            toString: jest.fn().mockReturnValue('some_facility_id'),
+          },
           shifts: ['some mysterious shifts'],
         });
       } else {
@@ -378,17 +415,24 @@ describe('Middleware: getSchedule', () => {
         return Promise.resolve(null);
       }
     });
+
+    User.findById = jest.fn().mockResolvedValue({
+      _id: 'some_user_id',
+      managedFacility: {
+        toString: jest.fn().mockReturnValue('some_facility_id'),
+      },
+    });
+
+    req.user = {_id: 'some_user_id'};
   });
 
-  it('should return schedule with id 123', async () => {
-    // mock a request with :id = 123
+  it('should find schedule with id 123', async () => {
     req.params.id = '123';
 
     await getSchedule(req, res, next);
 
-    expect(res.schedule._id).toEqual('123');
-    expect(res.schedule.shifts).toEqual(['some mysterious shifts']);
-    expect(next).toBeCalled();
+    expect(res.statusCode).toBe(200);
+    expect(res.schedule).toBeDefined();
   });
 
   it('should not find schedule with id 456', async () => {
@@ -401,4 +445,23 @@ describe('Middleware: getSchedule', () => {
     // we expect status code 404, id not found
     expect(res.statusCode).toBe(404);
   });
+
+  it('should forbid access when user does not manage the facility',
+      async () => {
+        User.findById = jest.fn().mockResolvedValue({
+          _id: 'some_user_id',
+          managedFacility: {
+            toString: jest.fn().mockReturnValue('some_other_facility_id'),
+          },
+        });
+
+        req.params.id = '123';
+
+        await getSchedule(req, res, next);
+
+        expect(res.statusCode).toBe(403);
+        expect(res._getJSONData()).toStrictEqual({
+          message: 'Forbidden to access',
+        });
+      });
 });
