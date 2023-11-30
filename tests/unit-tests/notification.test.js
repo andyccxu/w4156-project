@@ -31,6 +31,8 @@ describe('Controller functions for /notifications', () => {
         manager: '02',
       },
     ]);
+
+    req.user = {_id: 'some_user_id'};
   });
 
   afterEach(() => {
