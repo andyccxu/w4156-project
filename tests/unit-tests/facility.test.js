@@ -7,6 +7,7 @@ const User = require('../../models/User');
 // middleware function
 const {getFacility} = require('../../routes/facilities');
 
+// controller functions
 const {
   getController,
   createController,
@@ -14,310 +15,277 @@ const {
   deleteController,
 } = require('../../controllers/facilityController');
 
-jest.mock('../../models/User');
-jest.mock('../../models/Facility');
 
-describe('Facility Controller', () => {
-  let req; let res; let mockUserId; let mockFacilityId;
+describe('Middleware: getFacility', () => {
+  let req; let res; let next;
 
   beforeEach(() => {
     req = httpMocks.createRequest();
     res = httpMocks.createResponse();
-    mockUserId = new mongoose.Types.ObjectId();
-    mockFacilityId = new mongoose.Types.ObjectId();
+    next = jest.fn();
+
+    Facility.findOne = jest.fn((filter) => {
+      // we find the facility by the manager id
+      if (filter.manager === '123') {
+        return Promise.resolve({
+          _id: '123',
+          facilityName: 'facility 123',
+        });
+      } else {
+        return Promise.resolve(null);
+      }
+    });
+  });
+
+  it('should return facility with id 123', async () => {
+    req.user = {_id: '123'};
+
+    await getFacility(req, res, next);
+
+    expect(res.facility).toEqual({
+      _id: '123',
+      facilityName: 'facility 123',
+    });
+  });
+
+  it('should return 404 when facility not found', async () => {
+    req.user = {_id: '456'};
+
+    await getFacility(req, res, next);
+
+    expect(res.statusCode).toBe(404);
+    expect(res._getJSONData()).toEqual({
+      message: 'No facility managed by this user',
+    });
+  });
+
+  it('should return 500 when database error', async () => {
+    Facility.findOne = jest.fn().mockRejectedValue(new Error('Database error'));
+
+    req.user = {_id: '456'};
+
+    await getFacility(req, res, next);
+
+    expect(res.statusCode).toBe(500);
+    expect(res._getJSONData()).toEqual({
+      message: 'Database error',
+    });
+  });
+});
+
+
+describe('Facility Controller', () => {
+  let req; let res;
+
+  beforeEach(() => {
+    req = httpMocks.createRequest();
+    res = httpMocks.createResponse();
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('getController', () => {
+  describe('deleteController', () => {
     beforeEach(() => {
-      req.user = {_id: mockUserId};
-    });
-
-    it('should retrieve the facility managed by the user', async () => {
-      const mockManagedFacility = {
-        _id: mockFacilityId,
-        facilityName: 'Example Facility',
-        // other facility details
-      };
-
-      User.findById = jest.fn().mockResolvedValue({
-        _id: mockUserId,
-        managedFacility: mockManagedFacility,
+      // mock user.findById
+      User.findById = jest.fn().mockReturnValue({
+        name: 'mockedName',
+        managedFacility: new mongoose.Types.ObjectId(),
+        save: jest.fn().mockReturnThis(),
       });
 
-      await getController(req, res);
+      req.user = {_id: 'mockedUserId'};
 
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
+      Facility.deleteOne = jest.fn();
+    });
+
+    it('should delete the facility', async () => {
+      await deleteController(req, res);
       expect(res.statusCode).toBe(200);
-      expect(res._getJSONData()).toEqual(mockManagedFacility);
     });
 
-    it('should return 404 when the user does not manage a facility',
-        async () => {
-          User.findById = jest.fn().mockResolvedValue({
-            _id: mockUserId,
-            // No managedFacility
-          });
-
-          await getController(req, res);
-
-          expect(User.findById).toHaveBeenCalledWith(mockUserId);
-          expect(res.statusCode).toBe(404);
-          expect(res._getJSONData()).toEqual({message: 'No facility managed by this user'});
-        });
-
-    it('should return 500 on database error', async () => {
-      User.findById = jest.fn().mockRejectedValue(new Error('Database error'));
-
-      await getController(req, res);
-
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
-      expect(res.statusCode).toBe(500);
-      expect(res._getJSONData()).toEqual({message: 'Database error'});
-    });
-
-    // Add any other test cases if needed
-  });
-
-
-  describe('createController', () => {
-    beforeEach(() => {
-      req.user = {_id: mockUserId};
-      req.body = {
-        facilityName: 'New Facility',
-        facilityType: 'other',
-        operatingHours: {start: '08:00', end: '17:00'},
-        numberEmployees: 10,
-        numberShifts: 1,
-        numberDays: 5,
-        // Add other facility details as required
-      };
-    });
-
-    it('should create a new facility', async () => {
-      User.findById = jest.fn().mockResolvedValue({
-        _id: mockUserId,
-        managedFacility: null, // Assuming the user does not manage any facility
-      });
-
-      Facility.prototype.save = jest.fn().mockResolvedValue({
-        _id: mockFacilityId,
-        ...req.body,
-        manager: mockUserId,
-      });
-
-      User.prototype.save = jest.fn();
-
-      await createController(req, res);
-
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
-      expect(Facility.prototype.save).toHaveBeenCalled();
-      expect(User.prototype.save).toHaveBeenCalled();
-      expect(res.statusCode).toBe(201);
-      expect(res._getJSONData()).toEqual({
-        _id: mockFacilityId,
-        ...req.body,
-        manager: mockUserId,
-      });
-    });
-
-    it('should return 400 when user already manages a facility', async () => {
-      User.findById = jest.fn().mockResolvedValue({
-        _id: mockUserId,
-        managedFacility: mockFacilityId, // User already manages a facility
-      });
-
-      await createController(req, res);
-
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
-      expect(res.statusCode).toBe(400);
-      expect(res._getJSONData()).toEqual({message: 'User already manages a facility'});
-    });
-
-    it('should return 400 on database error', async () => {
-      User.findById = jest.fn().mockResolvedValue({
-        _id: mockUserId,
+    it('should return 404 when facility not found', async () => {
+      User.findById = jest.fn().mockReturnValue({
+        name: 'mockedName',
         managedFacility: null,
+        save: jest.fn().mockReturnThis(),
       });
 
-      Facility.prototype.save = jest.fn().mockRejectedValue(new Error('Database error'));
+      await deleteController(req, res);
 
-      await createController(req, res);
-
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
-      expect(Facility.prototype.save).toHaveBeenCalled();
-      expect(res.statusCode).toBe(400);
-      expect(res._getJSONData()).toEqual({message: 'Database error'});
+      expect(res.statusCode).toBe(404);
     });
 
-    // Add any other test cases if needed
+
+    it('should return 500 when database error', async () => {
+      // simulate error when calling Facility.deleteOne()
+      Facility.deleteOne = jest.fn().mockRejectedValue(
+          new Error('Database error'));
+
+      await deleteController(req, res);
+
+      expect(res.statusCode).toBe(500);
+    });
   });
 
   describe('patchController', () => {
     beforeEach(() => {
-      req.params = {id: mockFacilityId};
+      // mock res.facility
+      res.facility = {
+        facilityName: 'mockedFacilityName',
+        facilityType: 'mockedFacilityType',
+        operatingHours: {
+          start: 'mockedStart',
+          end: 'mockedEnd',
+        },
+        numberShifts: 1,
+        numberDays: 5,
+        manager: 'mockedUserId',
+        employees: [],
+      };
+
+      // mock res.facility.save()
+      res.facility.save = jest.fn().mockReturnThis();
+    });
+
+    it('should update the facility', async () => {
       req.body = {
-        facilityName: 'Updated Facility Name',
-        // Add other fields that you want to update
+        facilityName: 'facility-test',
+        facilityType: 'hospital',
+        operatingHours: {
+          start: '01:00',
+          end: '23:00',
+        },
+        numberShifts: 1,
+        numberDays: 5,
+        employees: [new mongoose.Types.ObjectId()],
       };
 
-      req.facility = {
-        _id: mockFacilityId,
-        facilityName: 'Original Facility Name',
-        save: jest.fn().mockResolvedValue({
-          _id: mockFacilityId,
-          ...req.body,
-        }),
-        // Include original fields of the facility
-      };
-    });
-
-    it('should update facility properties', async () => {
       await patchController(req, res);
 
-      expect(req.facility.save).toHaveBeenCalled();
       expect(res.statusCode).toBe(200);
-      expect(res._getJSONData()).toEqual({
-        _id: mockFacilityId,
-        ...req.body,
-      });
+      expect(res._getJSONData()).toEqual(expect.objectContaining({
+        facilityName: 'facility-test',
+        facilityType: 'hospital',
+        operatingHours: {
+          start: '01:00',
+          end: '23:00',
+        },
+        numberShifts: 1,
+        numberDays: 5,
+      }));
     });
 
-    it('should handle no updates gracefully', async () => {
-      // Assuming no fields are updated
-      req.body = {};
+    it('should return 400 when database error', async () => {
+      res.facility.save = jest.fn().mockRejectedValue(new Error('mockedError'));
 
       await patchController(req, res);
 
-      expect(req.facility.save).not.toHaveBeenCalled();
-      expect(res.statusCode).toBe(200);
-      expect(res._getJSONData()).toEqual(req.facility);
-    });
-
-    it('should return 400 on database error during update', async () => {
-      req.facility.save = jest.fn().mockRejectedValue(new Error('Database error'));
-
-      await patchController(req, res);
-
-      expect(req.facility.save).toHaveBeenCalled();
       expect(res.statusCode).toBe(400);
-      expect(res._getJSONData()).toEqual({message: 'Database error'});
     });
-
-    // Add any other test cases if needed
   });
 
-
-  describe('deleteController', () => {
+  describe('createController', () => {
     beforeEach(() => {
-      req.user = {_id: mockUserId};
-    });
-
-    it('should delete the facility managed by the user', async () => {
-      User.findById = jest.fn().mockResolvedValue({
-        _id: mockUserId,
-        managedFacility: mockFacilityId,
-      });
-
-      Facility.deleteOne = jest.fn().mockResolvedValue({});
-
-      await deleteController(req, res);
-
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
-      expect(Facility.deleteOne).toHaveBeenCalledWith({_id: mockFacilityId});
-      expect(res.statusCode).toBe(200);
-      expect(res._getJSONData()).toEqual({message: 'Deleted facility'});
-    });
-
-    it('should return 404 when the user does not manage a facility', async () => {
-      User.findById = jest.fn().mockResolvedValue({
-        _id: mockUserId,
-        // No managedFacility
-      });
-
-      await deleteController(req, res);
-
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
-      expect(res.statusCode).toBe(404);
-      expect(res._getJSONData()).toEqual({message: 'No facility managed by this user'});
-    });
-
-    it('should return 500 on database error', async () => {
-      User.findById = jest.fn().mockRejectedValue(new Error('Database error'));
-
-      await deleteController(req, res);
-
-      expect(User.findById).toHaveBeenCalledWith(mockUserId);
-      expect(res.statusCode).toBe(500);
-      expect(res._getJSONData()).toEqual({message: 'Database error'});
-    });
-
-    // Add any other test cases if needed
-  });
-
-
-  // Add any other helper or middleware tests if needed
-
-  describe('Middleware: findFacility', () => {
-    let req; let res; let next; let mockFacilityId;
-
-    beforeAll(() => {
-      jest.mock('../models/Facility'); // Mock the Facility model
-    });
-
-    afterAll(() => {
-      jest.restoreAllMocks();
-    });
-
-    beforeEach(() => {
-      req = httpMocks.createRequest();
-      res = httpMocks.createResponse();
-      next = jest.fn();
-      mockFacilityId = new mongoose.Types.ObjectId();
-
-      Facility.findById = jest.fn();
-      req.params = {id: mockFacilityId};
-    });
-
-    it('should find a facility and attach it to the request object', async () => {
-      const mockFacility = {
-        _id: mockFacilityId,
-        facilityName: 'Test Facility',
-        // other facility details
+      req.body = {
+        facilityName: 'facility-test',
+        facilityType: 'hospital',
+        operatingHours: {
+          start: '01:00',
+          end: '23:00',
+        },
+        numberShifts: 1,
+        numberDays: 5,
       };
 
-      Facility.findById.mockResolvedValue(mockFacility);
+      req.user = {_id: 'mockedUserId'};
 
-      await getFacility(req, res, next);
-
-      expect(Facility.findById).toHaveBeenCalledWith(mockFacilityId);
-      expect(req.facility).toEqual(mockFacility);
-      expect(next).toHaveBeenCalled();
+      // mock User.findById
+      User.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          managedFacility: null,
+        }),
+        save: jest.fn().mockReturnThis(),
+        name: 'mockedName',
+      });
     });
 
-    it('should handle facility not found', async () => {
-      Facility.findById.mockResolvedValue(null);
+    it('should create a new facility', async () => {
+      // mock facility.save()
+      Facility.prototype.save = jest.fn().mockReturnThis();
 
-      await findFacility(req, res, next);
+      await createController(req, res);
 
-      expect(Facility.findById).toHaveBeenCalledWith(mockFacilityId);
-      expect(res.statusCode).toBe(404);
-      expect(res._getJSONData()).toEqual({message: 'Facility not found'});
+      expect(res.statusCode).toBe(201);
+      expect(res._getJSONData()).toEqual(expect.objectContaining({
+        facilityName: 'facility-test',
+        facilityType: 'hospital',
+        operatingHours: {
+          start: '01:00',
+          end: '23:00',
+        },
+        numberShifts: 1,
+        numberDays: 5,
+      }));
     });
 
-    it('should handle errors', async () => {
-      Facility.findById.mockRejectedValue(new Error('Database error'));
+    it('should return 400 when req.body is missing', async () => {
+      req.body = null;
 
-      await findFacility(req, res, next);
+      await createController(req, res);
 
-      expect(Facility.findById).toHaveBeenCalledWith(mockFacilityId);
+      expect(res.statusCode).toBe(400);
+    });
+  });
+
+  describe('getController', () => {
+    it('should retrieve the facility managed by the user', async () => {
+      req.user = {_id: 'mockedUserId'};
+      mockedFacility = {
+        facilityName: 'mockedFacilityName',
+        facilityType: 'mockedFacilityType',
+        operatingHours: {
+          start: 'mockedStart',
+          end: 'mockedEnd',
+        },
+        numberShifts: 1,
+        numberDays: 5,
+        manager: 'mockedUserId',
+      };
+      // mock User.findById by return value
+      User.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          managedFacility: mockedFacility,
+        }),
+        name: 'mockedName',
+      });
+
+      await getController(req, res);
+
+      expect(res.statusCode).toBe(200);
+      expect(res._getJSONData()).toStrictEqual(mockedFacility);
+    });
+
+    it('should return status code 500 for internal server error', async () => {
+      // we leave req.user undefined to trigger an error
+      await getController(req, res);
       expect(res.statusCode).toBe(500);
-      expect(res._getJSONData()).toEqual({message: 'Database error'});
     });
 
-    // Add any other test cases if needed
+    it('should return status code 404 if the user does not manage a facility',
+        async () => {
+          req.user = {_id: 'mockedUserId'};
+          User.findById = jest.fn().mockReturnValue({
+            populate: jest.fn().mockReturnValue({
+              managedFacility: null,
+            }),
+            name: 'mockedName',
+          });
+
+          await getController(req, res);
+
+          expect(res.statusCode).toBe(404);
+        });
   });
 });

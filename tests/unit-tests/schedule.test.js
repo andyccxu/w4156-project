@@ -361,15 +361,6 @@ describe('Middleware: getSchedule', () => {
   // these objects are all mocked
   let req; let res; let next;
 
-  beforeAll(() => {
-    jest.mock('../../models/Schedule');
-  });
-
-  afterAll(() => {
-    // restore the original implementation
-    jest.restoreAllMocks();
-  });
-
   beforeEach(() => {
     req = httpMocks.createRequest();
     res = httpMocks.createResponse();

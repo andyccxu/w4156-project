@@ -110,7 +110,7 @@ async function deleteController(req, res) {
     user.managedFacility = null;
     await user.save();
 
-    res.json({message: 'Deleted facility'});
+    res.status(200).json({message: 'Deleted facility'});
   } catch (err) {
     res.status(500).json({message: err.message});
   }

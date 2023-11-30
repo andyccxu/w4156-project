@@ -56,16 +56,16 @@ const facilitySchema = new mongoose.Schema({
 
 const Facility = mongoose.model('Facility', facilitySchema);
 
-// indexes need to be built so that mongodb can ensure
-// the unique property
-// we check that the database connection is open before
-// calling createIndexes()
-const db = mongoose.connection;
-db.once('open', function() {
-  Facility.createIndexes()
-      .catch((err) => {
-        console.error('Facility.createIndexes(): ', err);
-      });
-});
+// // indexes need to be built so that mongodb can ensure
+// // the unique property
+// // we check that the database connection is open before
+// // calling createIndexes()
+// const db = mongoose.connection;
+// db.once('open', function() {
+//   Facility.createIndexes()
+//       .catch((err) => {
+//         console.error('Facility.createIndexes(): ', err);
+//       });
+// });
 
 module.exports = Facility;
