@@ -118,7 +118,6 @@ async function deleteController(req, res) {
 
 module.exports = {
   getController,
-  getController,
   createController,
   patchController,
   deleteController,

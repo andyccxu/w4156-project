@@ -287,13 +287,14 @@ Before using any other endpoint, user must create an account by signing up, then
 - **Description:**
     Create a new notification with the specified title and content.
 - **Request Body:**
-  - `title: string`
-  - `content: string`
+  - `employeeId: string`
+  - `message: string`
+  - `manager: string`
 - **Response Codes:**
   - `201: Success`
   - `400: Invalid Input`
 
-#### `PATCH /notifications/:id`
+<!-- #### `PATCH /notifications/:id`
 
 - **Description:**
     Update the title or content of a specific notification by ID.
@@ -305,7 +306,7 @@ Before using any other endpoint, user must create an account by signing up, then
 - **Response Codes:**
   - `200: Success`
   - `400: Invalid Input`
-  - `404: Notification Not Found`
+  - `404: Notification Not Found` -->
 
 #### `DELETE /notifications/:id`
 

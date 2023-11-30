@@ -1,5 +1,6 @@
 const Notification = require('../models/Notification');
 const Employee = require('../models/Employee');
+
 const {sendSMS} = require('../services/twilioClient');
 require('dotenv').config({path: '../config/config.env'});
 
@@ -11,7 +12,7 @@ require('dotenv').config({path: '../config/config.env'});
  */
 async function getAllController(req, res) {
   try {
-    const notifications = await Notification.find();
+    const notifications = await Notification.find({manager: req.user._id});
     res.json(notifications);
   } catch (err) {
     res.status(500).json({message: err.message});
