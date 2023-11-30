@@ -6,7 +6,7 @@ const {getNotification} = require('../../routes/notifications');
 const {
   getAllController,
   getOneController,
-  createController,
+  // createController,
   patchController,
   deleteController,
 } = require('../../controllers/notificationController');
@@ -95,12 +95,10 @@ describe('Controller functions for /notifications', () => {
   });
 
 
-  
   // describe('createController', () => {
   //   it('should create a new notification', async () => {
   //     // const req = httpMocks.createRequest();
   //     // const res = httpMocks.createResponse();
-      
   //     // req.user = {
   //     //   _id: '655c1788b99cfc1a85683f0f', // Replace with a valid user ID
   //     // };
@@ -143,14 +141,12 @@ describe('Controller functions for /notifications', () => {
   // });
 
 
-
   describe('patchController', () => {
     beforeEach(() => {
       res.notification = {
         employeeId: '123',
         message: 'Original message!',
         manager: '01',
-        
         save: jest.fn().mockResolvedValue({
           employeeId: '123',
           message: 'Updated message!',
@@ -227,20 +223,20 @@ describe('Controller functions for /notifications', () => {
     let req;
     let res;
     let next;
-  
+
     beforeAll(() => {
       jest.mock('../../models/Notification');
     });
-  
+
     afterAll(() => {
       jest.restoreAllMocks();
     });
-  
+
     beforeEach(() => {
       req = httpMocks.createRequest();
       res = httpMocks.createResponse();
       next = jest.fn();
-  
+
       Notification.findById = jest.fn((id) => {
         if (id === '123') {
           return Promise.resolve({
@@ -253,27 +249,25 @@ describe('Controller functions for /notifications', () => {
         }
       });
     });
-  
+
     it('should return notification with id 123', async () => {
       req.params.id = '123';
-  
+
       await getNotification(req, res, next);
-  
+
       expect(res.notification.employeeId).toEqual('123');
       expect(res.notification.message).toEqual('Message 1!');
       expect(res.notification.manager).toEqual('01');
       expect(next).toBeCalled();
     });
-  
+
     it('should not find notification with id 456', async () => {
       req.params.id = '456';
-  
+
       await getNotification(req, res, next);
-  
+
       expect(res.notification).toBeUndefined();
       expect(res.statusCode).toBe(404);
     });
   });
-    
-
 });
