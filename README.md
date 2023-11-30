@@ -5,16 +5,15 @@ OptiStaff API provides a Smart Dynamic Scheduler, streamlining the task of build
 ## Client Link
 
 Link to our client app repo:
+
 <https://github.com/andyccxu/w4156-project-frontend>
 
-## Install packages
+## Usage
 
+### Install dependencies
 ```bash
 npm install
 ```
-
-### Packages Explanation
-
 - **express**: Manages the server and routes.
 - **mongoose**: Interface for MongoDB connection and schema definition.
 - **dotenv**: Loads environment variables from a .env file.
@@ -26,17 +25,27 @@ npm install
 - **jest**: Delightful JavaScript testing framework.
 - **node-mock-https**: Mock out responses from the https module, useful for testing HTTP calls without making actual external requests.
 
-#### To run the server
+### Update config.env
+
+We use [Twilio](https://www.twilio.com/en-us) to send SMS messages for the notification feature. User of our service needs to obtain credentials for their own Twilio account and add them to our config file.
+
+Append the following lines to `config/config.env`. Replace values with your own Twilio acccount information.
+```
+TWILIO_ACCOUNT_SID=<your_twilio_id>
+TWILIO_AUTH_TOKEN=<your_auth_token>
+TWILIO_PHONE_NUMBER=<your_phone_number>
+```
+
+
+### To run the server
 
 ```bash
 node server.js
 ```
 
-#### To stop the server
+### To stop the server
 
-```bash
-ctrl + c
-```
+Use Ctrl + C
 
 ## Running Tests
 
