@@ -1,4 +1,4 @@
-// external integration tests for the mongoDB database
+// external integration tests for MongoDB
 //
 
 const mongoose = require('mongoose');
@@ -66,7 +66,18 @@ test('should not save a user with duplicate email address', async () => {
   expect(savedUser).toBeUndefined();
 });
 
-test('should contain a user with username John Doe', async () => {
+test('should contain a user' +
+'with username John Doe; test persistent database storage',
+async () => {
+  await mongoose.connection.close();
+
+  // sleep 1 second
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  // connect
+  const url = process.env.MONGO_URI_TEST;
+  await mongoose.connect(url);
+
   const user = await User.findOne({name: 'John Doe'}).select('+password');
   expect(user.name).toBe('John Doe');
   expect(user.email).toBe('john@example.com');
