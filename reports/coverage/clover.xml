@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1701376334867" clover="3.2.0">
-  <project timestamp="1701376334867" name="All files">
+<coverage generated="1701906082388" clover="3.2.0">
+  <project timestamp="1701906082388" name="All files">
     <metrics statements="378" coveredstatements="345" conditionals="70" coveredconditionals="62" methods="37" coveredmethods="32" elements="485" coveredelements="439" complexity="0" loc="378" ncloc="378" packages="6" files="20" classes="20"/>
-    <package name="w4156-project">
+    <package name="optistaff">
       <metrics statements="23" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="app.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/app.js">
+      <file name="app.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/app.js">
         <metrics statements="23" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -31,9 +31,9 @@
         <line num="42" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="w4156-project.controllers">
+    <package name="optistaff.controllers">
       <metrics statements="202" coveredstatements="181" conditionals="56" coveredconditionals="50" methods="21" coveredmethods="20"/>
-      <file name="authController.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/controllers/authController.js">
+      <file name="authController.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/controllers/authController.js">
         <metrics statements="25" coveredstatements="20" conditionals="6" coveredconditionals="3" methods="2" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -61,7 +61,7 @@
         <line num="48" count="3" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
       </file>
-      <file name="employeeController.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/controllers/employeeController.js">
+      <file name="employeeController.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/controllers/employeeController.js">
         <metrics statements="41" coveredstatements="41" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -105,7 +105,7 @@
         <line num="119" count="1" type="stmt"/>
         <line num="123" count="2" type="stmt"/>
       </file>
-      <file name="facilityController.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/controllers/facilityController.js">
+      <file name="facilityController.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/controllers/facilityController.js">
         <metrics statements="46" coveredstatements="44" conditionals="20" coveredconditionals="18" methods="4" coveredmethods="4"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -154,7 +154,7 @@
         <line num="115" count="1" type="stmt"/>
         <line num="119" count="3" type="stmt"/>
       </file>
-      <file name="notificationController.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/controllers/notificationController.js">
+      <file name="notificationController.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/controllers/notificationController.js">
         <metrics statements="31" coveredstatements="20" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="4"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -188,7 +188,7 @@
         <line num="95" count="1" type="stmt"/>
         <line num="99" count="2" type="stmt"/>
       </file>
-      <file name="scheduleController.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/controllers/scheduleController.js">
+      <file name="scheduleController.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/controllers/scheduleController.js">
         <metrics statements="59" coveredstatements="56" conditionals="14" coveredconditionals="13" methods="5" coveredmethods="5"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -247,13 +247,13 @@
         <line num="189" count="2" type="stmt"/>
         <line num="190" count="2" type="stmt"/>
         <line num="191" count="1" type="stmt"/>
-        <line num="193" count="1" type="stmt"/>
+        <line num="193" count="2" type="stmt"/>
         <line num="198" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="w4156-project.middlewares">
+    <package name="optistaff.middlewares">
       <metrics statements="11" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-      <file name="verifyAuth.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/middlewares/verifyAuth.js">
+      <file name="verifyAuth.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/middlewares/verifyAuth.js">
         <metrics statements="11" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -268,9 +268,9 @@
         <line num="18" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="w4156-project.models">
+    <package name="optistaff.models">
       <metrics statements="27" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
-      <file name="Employee.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/models/Employee.js">
+      <file name="Employee.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/models/Employee.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="5" type="stmt"/>
         <line num="3" count="5" type="stmt"/>
@@ -283,21 +283,21 @@
         <line num="60" count="5" type="stmt"/>
         <line num="62" count="5" type="stmt"/>
       </file>
-      <file name="Facility.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/models/Facility.js">
+      <file name="Facility.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/models/Facility.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="5" type="stmt"/>
         <line num="3" count="5" type="stmt"/>
         <line num="57" count="5" type="stmt"/>
         <line num="71" count="5" type="stmt"/>
       </file>
-      <file name="Notification.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/models/Notification.js">
+      <file name="Notification.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/models/Notification.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
         <line num="27" count="3" type="stmt"/>
         <line num="29" count="3" type="stmt"/>
       </file>
-      <file name="Schedule.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/models/Schedule.js">
+      <file name="Schedule.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/models/Schedule.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -306,16 +306,16 @@
         <line num="57" count="3" type="stmt"/>
         <line num="59" count="3" type="stmt"/>
       </file>
-      <file name="User.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/models/User.js">
+      <file name="User.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/models/User.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="5" type="stmt"/>
         <line num="3" count="5" type="stmt"/>
         <line num="30" count="5" type="stmt"/>
       </file>
     </package>
-    <package name="w4156-project.routes">
+    <package name="optistaff.routes">
       <metrics statements="93" coveredstatements="87" conditionals="12" coveredconditionals="11" methods="5" coveredmethods="5"/>
-      <file name="auth.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/routes/auth.js">
+      <file name="auth.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/routes/auth.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -324,7 +324,7 @@
         <line num="7" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
       </file>
-      <file name="employees.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/routes/employees.js">
+      <file name="employees.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/routes/employees.js">
         <metrics statements="17" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -344,7 +344,7 @@
         <line num="45" count="1" type="stmt"/>
         <line num="48" count="2" type="stmt"/>
       </file>
-      <file name="facilities.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/routes/facilities.js">
+      <file name="facilities.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/routes/facilities.js">
         <metrics statements="16" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -363,7 +363,7 @@
         <line num="43" count="1" type="stmt"/>
         <line num="47" count="3" type="stmt"/>
       </file>
-      <file name="notifications.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/routes/notifications.js">
+      <file name="notifications.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/routes/notifications.js">
         <metrics statements="17" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -376,14 +376,14 @@
         <line num="22" count="2" type="stmt"/>
         <line num="35" count="2" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
-        <line num="37" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
+        <line num="38" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
-        <line num="49" count="2" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
       </file>
-      <file name="schedules.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/routes/schedules.js">
+      <file name="schedules.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/routes/schedules.js">
         <metrics statements="28" coveredstatements="25" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -414,7 +414,7 @@
         <line num="72" count="1" type="stmt"/>
         <line num="75" count="2" type="stmt"/>
       </file>
-      <file name="users.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/routes/users.js">
+      <file name="users.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/routes/users.js">
         <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -427,9 +427,9 @@
         <line num="17" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="w4156-project.services">
+    <package name="optistaff.services">
       <metrics statements="22" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="2"/>
-      <file name="scheduling.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/services/scheduling.js">
+      <file name="scheduling.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/services/scheduling.js">
         <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="2" count="3" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
@@ -445,7 +445,7 @@
         <line num="54" count="8" type="stmt"/>
         <line num="58" count="3" type="stmt"/>
       </file>
-      <file name="twilioClient.js" path="/Users/ccxu/Desktop/Coursework/ASE/project/w4156-project/services/twilioClient.js">
+      <file name="twilioClient.js" path="/Users/serdar/Desktop/cu_fall_2023/w4156-ase/optistaff/services/twilioClient.js">
         <metrics statements="9" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>

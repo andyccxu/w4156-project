@@ -33,7 +33,8 @@ router.delete('/:id', getNotification, notificationController.deleteController);
 async function getNotification(req, res, next) {
   let notification;
   try {
-    notification = await Notification.findById(req.params.id);
+    notification = await Notification.findOne({manager: req.user._id,
+      _id: req.params.id});
     if (notification == null) {
       return res.status(404).json({message: 'Cannot find the notification'});
     }

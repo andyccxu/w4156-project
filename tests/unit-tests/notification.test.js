@@ -236,12 +236,13 @@ describe('Controller functions for /notifications', () => {
       res = httpMocks.createResponse();
       next = jest.fn();
 
-      Notification.findById = jest.fn((id) => {
-        if (id === '123') {
+      Notification.findOne = jest.fn((query) => {
+        if (query.manager === 'some_user_id' && query._id === '123') {
           return Promise.resolve({
             employeeId: '123',
             message: 'Message 1!',
             manager: '01',
+            user: {_id: 'some_user_id'},
           });
         } else {
           return Promise.resolve(null);
@@ -251,17 +252,20 @@ describe('Controller functions for /notifications', () => {
 
     it('should return notification with id 123', async () => {
       req.params.id = '123';
+      req.user = {_id: 'some_user_id'};
 
       await getNotification(req, res, next);
 
       expect(res.notification.employeeId).toEqual('123');
       expect(res.notification.message).toEqual('Message 1!');
       expect(res.notification.manager).toEqual('01');
+      // expect(res.user._id).toEqual('some_user_id');
       expect(next).toBeCalled();
     });
 
     it('should not find notification with id 456', async () => {
       req.params.id = '456';
+      req.user = {_id: 'some_user_id'};
 
       await getNotification(req, res, next);
 
