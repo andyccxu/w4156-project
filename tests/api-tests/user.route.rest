@@ -16,3 +16,7 @@ Content-Type: application/json
     "email": "cx2295@columbia.edu",
     "password": "12345"
 }
+
+### 
+GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczOWExOTgxMzNmMWE4NDU5ZDRhMjEiLCJpYXQiOjE3MDIwNzQ5MDcsImV4cCI6MTcwMjE2MTMwN30.3yDvu5Uu75uttYrel1kXKEzZWnNVh-RKo3YtUMmPvkQ

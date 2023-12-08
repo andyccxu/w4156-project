@@ -1,30 +1,46 @@
 ### Create a employee
 POST http://localhost:8080/employees/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3YjFjMGZhMWMzN2Q3Zjg4ZDcxZjAiLCJpYXQiOjE3MDEyOTQ1MzEsImV4cCI6MTcwMTM4MDkzMX0.dZqyAgMS5pON_pHxSLXjZ_nDBKSHb6o4pz192ZB26jY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczOWExOTgxMzNmMWE4NDU5ZDRhMjEiLCJpYXQiOjE3MDIwNzQ5MDcsImV4cCI6MTcwMjE2MTMwN30.3yDvu5Uu75uttYrel1kXKEzZWnNVh-RKo3YtUMmPvkQ
 
 {
     "name": "cathy",
-    "email": "cathy@ea.com",
-    "assignedFacility": "6567b22bfa1c37d7f88d71f5",
+    "email": "cathy2@hello.com",
+    "assignedFacility": "65739a3b8133f1a8459d4a27",
+    "phoneNumber": "1234567890"
+}
+
+
+### Create a employee
+POST http://localhost:8080/employees/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczOWExOTgxMzNmMWE4NDU5ZDRhMjEiLCJpYXQiOjE3MDIwNzQ5MDcsImV4cCI6MTcwMjE2MTMwN30.3yDvu5Uu75uttYrel1kXKEzZWnNVh-RKo3YtUMmPvkQ
+
+{
+    "name": "bob2",
+    "email": "bob2@hello.com",
+    "assignedFacility": "65739a3b8133f1a8459d4a27",
     "phoneNumber": "1234567890"
 }
 
 ### Get all employee
 GET http://localhost:8080/employees/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ4NzFkN2NiZjhlYTA3MzJmZmQ3NTEiLCJpYXQiOjE2OTkzMzYyMDMsImV4cCI6MTY5OTQyMjYwM30.cHR4z-8__Rnpx8KvPstzNvI_AfY5hzK2kVqwcXvzfUU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczOWExOTgxMzNmMWE4NDU5ZDRhMjEiLCJpYXQiOjE3MDIwNzQ5MDcsImV4cCI6MTcwMjE2MTMwN30.3yDvu5Uu75uttYrel1kXKEzZWnNVh-RKo3YtUMmPvkQ
 
 
 ### Get a employee by id
-GET http://localhost:8080/employees/653049169b5062091f0d04a3
+GET http://localhost:8080/employees/65738ca9331a228d996a32f0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczOWExOTgxMzNmMWE4NDU5ZDRhMjEiLCJpYXQiOjE3MDIwNzQ5MDcsImV4cCI6MTcwMjE2MTMwN30.3yDvu5Uu75uttYrel1kXKEzZWnNVh-RKo3YtUMmPvkQ
 
 ### Update the employee info
-PATCH http://localhost:8080/employees/653049169b5062091f0d04a3
+PATCH http://localhost:8080/employees/65738ca9331a228d996a32f0
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczOWExOTgxMzNmMWE4NDU5ZDRhMjEiLCJpYXQiOjE3MDIwNzQ5MDcsImV4cCI6MTcwMjE2MTMwN30.3yDvu5Uu75uttYrel1kXKEzZWnNVh-RKo3YtUMmPvkQ
 
 {
-    "location": "New York"
+    "email": "cathy2@hello.com"
 }
 
 ### Delete a employee
-DELETE http://localhost:8080/employees/653049169b5062091f0d04a3
+DELETE http://localhost:8080/employees/65738d06331a228d996a32ff
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczOWExOTgxMzNmMWE4NDU5ZDRhMjEiLCJpYXQiOjE3MDIwNzQ5MDcsImV4cCI6MTcwMjE2MTMwN30.3yDvu5Uu75uttYrel1kXKEzZWnNVh-RKo3YtUMmPvkQ
