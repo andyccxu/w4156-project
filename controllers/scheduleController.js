@@ -123,6 +123,15 @@ async function patchController(req, res) {
       return;
     }
 
+    // check if the employee exists
+    if (!facility.employees.includes(shift.employeeId)) {
+      res.status(400).json({
+        employeeId: shift.employeeId,
+        message: 'Error: Employee does not work at the facility.',
+      });
+      return;
+    }
+
     // check input time format
     if (!moment(shift.start, 'HH:mm', true).isValid() ||
     !moment(shift.end, 'HH:mm', true).isValid()) {

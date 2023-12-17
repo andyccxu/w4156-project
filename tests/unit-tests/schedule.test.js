@@ -200,6 +200,7 @@ describe('Controller functions for /schedules', () => {
       res.facility = {
         _id: '33312',
         facilityName: 'Tom\'s restaurant',
+        employees: ['1', '2', '3'],
         operatingHours: {
           start: '09:00',
           end: '17:00',
@@ -215,11 +216,34 @@ describe('Controller functions for /schedules', () => {
       jest.clearAllMocks();
     });
 
+    it('should verify employee works at the facility', async () => {
+      const req = {
+        body: {
+          shifts: [{
+            employeeId: 'not_valid',
+            start: '09:00',
+            end: '18:00',
+          }],
+        },
+      };
+
+      res.status = jest.fn().mockReturnThis();
+      res.json = jest.fn();
+
+      await patchController(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'Error: Employee does not work at the facility.',
+        employeeId: 'not_valid',
+      });
+    });
+
     it('should spot invalid shifts that are out of boundary', async () => {
       const req = {
         body: {
           shifts: [{
-            staffId: '1',
+            employeeId: '1',
             start: '09:00',
             end: '18:00',
           }],
@@ -244,7 +268,7 @@ describe('Controller functions for /schedules', () => {
           const req = {
             body: {
               shifts: [{
-                staffId: '1',
+                employeeId: '1',
                 start: '19:141',
                 end: '18:00',
               }],
@@ -270,7 +294,7 @@ describe('Controller functions for /schedules', () => {
           const req = {
             body: {
               shifts: [{
-                staffId: '1',
+                employeeId: '1',
                 start: '19:00',
                 end: '18:00',
               }],
@@ -300,7 +324,7 @@ describe('Controller functions for /schedules', () => {
       const req = {
         body: {
           shifts: [{
-            staffId: '1',
+            employeeId: '1',
             start: '09:00',
             end: '17:00',
             days: ['Invalid day'],
@@ -327,7 +351,7 @@ describe('Controller functions for /schedules', () => {
       const req = {
         body: {
           shifts: [{
-            staffId: '1',
+            employeeId: '1',
             start: '09:00',
             end: '17:00',
             days: [],
