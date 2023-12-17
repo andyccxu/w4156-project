@@ -1,0 +1,36 @@
+
+
+###
+GET http://localhost:8080/facilities
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+### Create a facility
+POST http://localhost:8080/facilities/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+{
+    "facilityName": "Facility 2",
+    "facilityType": "retail",
+    "operatingHours": {
+        "start": "11:00",
+        "end": "23:00"
+    },
+    "numberShifts": 2
+}
+
+### Delete a facility
+DELETE http://localhost:8080/facilities
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+
+### Update the facility info
+PATCH http://localhost:8080/facilities
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+{
+    "facilityType": "hospital",
+    "facilityName": "f1"
+}

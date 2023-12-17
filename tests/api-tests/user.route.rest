@@ -1,0 +1,22 @@
+### Signup the new user
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+    "name": "Andy",
+    "email": "cx2295@columbia.edu",
+    "password": "12345"
+}
+
+### 
+POST http://localhost:8080/auth/login 
+Content-Type: application/json
+
+{
+    "email": "cx2295@columbia.edu",
+    "password": "12345"
+}
+
+### 
+GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis

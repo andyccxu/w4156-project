@@ -1,0 +1,46 @@
+### Create a employee
+POST http://localhost:8080/employees/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+{
+    "name": "cathy",
+    "email": "cathy@hello.com",
+    "assignedFacility": "65739a3b8133f1a8459d4a27",
+    "phoneNumber": "123-456-4343"
+}
+
+
+### Create a employee
+POST http://localhost:8080/employees/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+{
+    "name": "bob2",
+    "email": "bob@hello.com",
+    "assignedFacility": "65739a3b8133f1a8459d4a27",
+    "phoneNumber": "1234567890"
+}
+
+### Get all employee
+GET http://localhost:8080/employees/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+
+### Get a employee by id
+GET http://localhost:8080/employees/65738ca9331a228d996a32f0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+### Update the employee info
+PATCH http://localhost:8080/employees/65738ca9331a228d996a32f0
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+{
+    "email": "cathy2@hello.com"
+}
+
+### Delete a employee
+DELETE http://localhost:8080/employees/65738d06331a228d996a32ff
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis

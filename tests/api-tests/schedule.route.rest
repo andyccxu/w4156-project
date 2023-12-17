@@ -1,0 +1,40 @@
+
+### Get all schedules
+GET http://localhost:8080/schedules/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+### Create a schedule
+POST http://localhost:8080/schedules/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+{
+    "facility": "657f1fb33227a15878069ecb"
+}
+
+### Get one
+GET http://localhost:8080/schedules/657f20253227a15878069ee6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+
+### Update a schedule
+PATCH http://localhost:8080/schedules/657f20253227a15878069ee6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
+{
+    "shifts": [
+        {
+            "employeeId": "657f1fe03227a15878069ecf",
+            "start": "12:00",
+            "end": "14:00",
+            "days": ["Mo", "Tu", "We", "Th", "Fr"]
+        }
+    ]
+}
+
+
+### Delete a schedule
+DELETE http://localhost:8080/schedules/65738d70331a228d996a330f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTdmMWYzMjMyMjdhMTU4NzgwNjllYzUiLCJpYXQiOjE3MDI4Mjk4NzcsImV4cCI6MTcwMjkxNjI3N30.qlCwnY0_HoQGyABljm664vhckCHk7k1k6_mpU0xaSis
+
