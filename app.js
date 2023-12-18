@@ -33,10 +33,5 @@ app.use('/schedules', verifyAuth, schedulesRouter);
 const {router: employeesRouter} = require('./routes/employees');
 app.use('/employees', verifyAuth, employeesRouter);
 
-
-app.get('/', (req, res) => {
-  res.send('Index page. Nothing to see here. Try /facilities etc.');
-});
-
 // export app
 module.exports = app;
