@@ -50,39 +50,123 @@ async function getOneController(req, res) {
  * @param {*} res Express.js response object
  */
 async function createController(req, res) {
-  // query the facility by name
+  // Find the facility by ID
   const facility = await Facility.findOne({_id: req.body.facility});
   if (!facility) {
-    // cannot find the facility
     res.status(404).json({message: 'Cannot find the facility',
       facility: req.body.facility});
     return;
   }
 
-  // create a new schedule
+  // Create a new schedule for the facility
   schedule = new Schedule({
     facilityId: facility._id,
   });
 
+  // Compute shifts based on operating hours
   const shifts = scheduling.computeShifts(facility.operatingHours.start,
       facility.operatingHours.end,
       facility.numberShifts);
 
-  // create a new schedule entry for each staff
-  for (const employeeId of facility.employees) {
-    const employee = await Employee.findOne({_id: employeeId});
-    // randomly select a shift
-    const shift = shifts[Math.floor(Math.random() * shifts.length)];
+  // Check for employee availability
+  const employeeIds = facility.employees;
+  if (employeeIds.length === 0) {
+    return res.status(400).json({
+      message: 'No employees available for scheduling',
+    });
+  }
 
-    const scheduleEntry = new ScheduleEntry({
-      employeeId: employee._id,
-      start: shift.start,
-      end: shift.end,
+  // Determine the strategy based on the number of shifts and employees
+  if (shifts.length < employeeIds.length) {
+    // Case 1: Fewer shifts than employees
+    // Assign each shift to a different employee
+    const assignedEmployees = new Set();
+    shifts.forEach((shift, index) => {
+      if (index < employeeIds.length) {
+        schedule.shifts.push(new ScheduleEntry({
+          employeeId: employeeIds[index],
+          start: shift.start,
+          end: shift.end,
+        }));
+        assignedEmployees.add(employeeIds[index]);
+      }
     });
 
-    // we fill the shifts field of the schedule
-    schedule.shifts.push(scheduleEntry);
+    // Randomly assign remaining employees to the available shifts
+    const unassignedEmployees = employeeIds.filter(
+        (id) => !assignedEmployees.has(id),
+    );
+    unassignedEmployees.forEach((employeeId) => {
+      const randomShiftIndex = Math.floor(Math.random() * shifts.length);
+      const shift = shifts[randomShiftIndex];
+      schedule.shifts.push(new ScheduleEntry({
+        employeeId: employeeId,
+        start: shift.start,
+        end: shift.end,
+      }));
+    });
+  } else {
+    // Case 2: As many or more shifts than employees
+    // Assign each employee to a shift sequentially
+    let assignedShifts = 0;
+    for (const employeeId of employeeIds) {
+      if (assignedShifts < shifts.length) {
+        const shift = shifts[assignedShifts++];
+        schedule.shifts.push(new ScheduleEntry({
+          employeeId: employeeId, start: shift.start, end: shift.end,
+        }));
+      }
+    }
+
+    // Fetch employee details including skill levels
+    const employees = await Employee.find({_id: {$in: employeeIds}})
+        .sort({skillLevel: -1});
+
+    // Randomly assign remaining shifts, prioritizing higher skill levels
+    while (assignedShifts < shifts.length) {
+      const weightedIndex = weightedRandomIndex(employees);
+      const shift = shifts[assignedShifts++];
+      schedule.shifts.push(new ScheduleEntry({
+        employeeId: employees[weightedIndex]._id,
+        start: shift.start, end: shift.end,
+      }));
+    }
   }
+
+  // Helper function for weighted random selection
+  // eslint-disable-next-line require-jsdoc
+  function weightedRandomIndex(employees) {
+    const totalSkillLevel = employees.reduce(
+        (acc, cur) => acc + cur.skillLevel, 0,
+    );
+    let randomNum = Math.random() * totalSkillLevel;
+    for (let i = 0; i < employees.length; i++) {
+      randomNum -= employees[i].skillLevel;
+      if (randomNum <= 0) return i;
+    }
+    return employees.length - 1; // Fallback in case of rounding errors
+  }
+
+
+  // const shifts = scheduling.computeShifts(facility.operatingHours.start,
+  //     facility.operatingHours.end,
+  //     facility.numberShifts);
+
+  // // create a new schedule entry for each staff
+  // for (const employeeId of facility.employees) {
+  //   const employee = await Employee.findOne({_id: employeeId});
+  //   // randomly select a shift
+  //   const shift = shifts[Math.floor(Math.random() * shifts.length)];
+
+  //   const scheduleEntry = new ScheduleEntry({
+  //     employeeId: employee._id,
+  //     start: shift.start,
+  //     end: shift.end,
+  //   });
+
+  //   // we fill the shifts field of the schedule
+  //   schedule.shifts.push(scheduleEntry);
+  // }
 
 
   try {
