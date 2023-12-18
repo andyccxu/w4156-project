@@ -89,19 +89,19 @@ describe('Concurrency testing', () => {
 
   it('should let users know their own information', async () => {
     // retrieve user id
-    const response = await request(app).get('/users')
+    const response = await request(app).get('/profile')
         .set('Authorization', 'Bearer ' + jwtTokens.user1);
     expect(response.statusCode).toBe(200);
     expect(response.body.name).toBe('user1');
     userIds.user1 = response.body._id;
 
-    const response2 = await request(app).get('/users')
+    const response2 = await request(app).get('/profile')
         .set('Authorization', 'Bearer ' + jwtTokens.user2);
     expect(response2.statusCode).toBe(200);
     expect(response2.body.name).toBe('user2');
     userIds.user2 = response2.body._id;
 
-    const response3 = await request(app).get('/users')
+    const response3 = await request(app).get('/profile')
         .set('Authorization', 'Bearer ' + jwtTokens.user3);
     expect(response3.statusCode).toBe(200);
     expect(response3.body.name).toBe('user3');
